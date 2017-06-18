@@ -6,12 +6,14 @@ going quickly.
 
 It includes:
 
-- create-react-app (react, react-dom, react-scripts)
-- redux (react-redux, redux-thunk)
-- ramda
-- tachyons
-- json-server - fake api rest server
-- foreman - easy startup
+- [react](https://facebook.github.io/react/)
+- [create-react-app (react, react-dom, react-scripts)](https://github.com/facebookincubator/create-react-app)
+- [redux (react-redux, redux-thunk)](http://redux.js.org/)
+- [react-router](https://reacttraining.com/react-router/)
+- [ramda](http://ramdajs.com)
+- [tachyons](http://tachyons.io)
+- [json-server - fake api rest server](https://github.com/typicode/json-server)
+- [foreman - easy startup](https://github.com/strongloop/node-foreman)
 
 ---
 

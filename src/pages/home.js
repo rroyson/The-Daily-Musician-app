@@ -20,5 +20,10 @@ const Home = function() {
 export default Home
 
 function openDocs(e) {
-  window.location = 'http://localhost:5000'
+  if (/localhost/.test(window.location.href)) {
+    window.location = 'http://localhost:5000'
+  } else {
+    window.location =
+      'https://github.com/jrs-innovation-center/jrscode-react-starter#jrs-react-starter-kit'
+  }
 }
