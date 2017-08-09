@@ -10,7 +10,9 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.7.0",
     "redux-thunk": "^2.2.0",
-    "tachyons": "^4.7.4"
+    "t63": "^1.0.5",
+    "tachyons": "^4.7.4",
+    "timekit-booking": "^1.18.1"
   },
   "devDependencies": {
     "foreman": "^2.0.0",
