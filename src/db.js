@@ -33,7 +33,7 @@ export const getOrCreateProfile = (authResult, history) => (
     .then(data => {
       console.log('dispatchin to state', data)
       dispatch({ type: SET_PROFILE, payload: data })
-      // history.push('/profile')
+      history.push('/profile')
     })
     .catch(err => console.log(err))
 }
