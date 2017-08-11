@@ -2,12 +2,11 @@ import React from 'react'
 import Header from '../containers/header'
 import BigButton from '../components/big-button'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 
-const Profile = function(props) {
+const Profile = function() {
   return (
     <div className="bg-light-gray">
-      <div className="mb5">
+      <div classNameName="mb5">
         <Header />
       </div>
 
@@ -18,22 +17,12 @@ const Profile = function(props) {
             className="br4 h5 w5 dib ba b--black-05 pa2"
             title="Photo of a kitty staring at you"
           />
-          <h1 className="f3 mb2">
-            {props.firstName} {props.lastName}
-          </h1>
-          <h2 className="f5 fw4 gray mt0">{props.company}</h2>
+          <h1 className="f3 mb2">Angus Young W.</h1>
+          <h2 className="f5 fw4 gray mt0">Guitartist at (AC/DC)</h2>
         </div>
       </article>
 
     </div>
   )
 }
-
-function mapStateToProps(state) {
-  console.log('state', state)
-  return { profile: state.profile }
-}
-
-const connector = connect(mapStateToProps)
-
-export default connector(Profile)
+export default Profile
