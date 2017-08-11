@@ -1,5 +1,5 @@
 {
-  "name": "jrscode-react-starter",
+  "name": "The-Daily-Musician",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "nf start",
-    "api": "json-server --watch db.json -p 4000",
+  
     "web": "react-scripts start",
     "build": "react-scripts build",
     "test": "standard",

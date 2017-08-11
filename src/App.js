@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Home from './pages/home'
+import history from './history'
+import Profile from './pages/home'
 import Welcome from './pages/welcome'
-import Login from './pages/login'
 import ProfileForm from './pages/create-profile'
-import Profile from './pages/view-profile'
+// import Profile from './pages/view-profile'
 import Contacts from './pages/view-contacts'
 import EditProfile from './pages/edit-profile'
 import ShowContact from './pages/show-contact'
@@ -15,18 +15,23 @@ import ShowVenue from './pages/venue-show'
 import Venues from './pages/venues-view'
 import Calendar from './pages/calender-view'
 import EditVenueForm from './pages/venue-edit'
+import Auth from './auth'
+
+const auth = Auth()
 
 const App = function(props) {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <div>
         <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/login" component={Login} />
+          <Route
+            exact
+            path="/"
+            render={props => <Welcome auth={auth} {...props} />}
+          />
           <Route path="/signup" component={ProfileForm} />
-          <Route path="/home/:id" component={Home} />
           <Route path="/profile/:id/edit" component={EditProfile} />
-          <Route path="/profile/:id" component={Profile} />
+          <Route path="/profile" component={Profile} />
           <Route path="/contacts/new" component={AddContact} />
           <Route path="/contacts/:id/edit" component={EditContact} />
           <Route path="/contacts/:id" component={ShowContact} />
