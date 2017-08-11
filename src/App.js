@@ -24,11 +24,7 @@ const App = function(props) {
     <BrowserRouter history={history}>
       <div>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => <Welcome auth={auth} {...props} />}
-          />
+          <Route exact path="/" component={Welcome} />
           <Route path="/signup" component={ProfileForm} />
           <Route path="/profile/:id/edit" component={EditProfile} />
           <Route path="/profile" component={Profile} />

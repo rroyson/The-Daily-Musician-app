@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 console.log('SET_PROFILE', SET_PROFILE)
 
 const apiUrl = process.env.REACT_APP_API_URL
-console.log(process.env)
 
 const getOptions = (token, method = 'GET', body = null) => {
   return {
@@ -23,17 +22,36 @@ const getOptions = (token, method = 'GET', body = null) => {
 //     .then(data => dispatch({ type: SET_PROFILE, payload: data }))
 // }
 
-export const getOrCreateProfile = (authResult, history) => (
+// const profile = {
+//   access_token: 'MfwYfskQTyGTXeEH',
+//   id_token: '',
+//   expires_at: null,
+//   profile: {
+//     name: 'Trip Ottinger',
+//     given_name: 'Trip',
+//     family_name: 'Ottinger',
+//     nickname: 'tripott',
+//     picture:
+//       'https://lh6.googleusercontent.com/-hskkKrbgVew/AAAAAAAAAAI/AAAAAAAADvQ/0Ty55l0neis/photo.jpg',
+//     gender: 'male',
+//     locale: 'en',
+//     updated_at: '2017-08-10T19:27:00.152Z',
+//     sub: 'aaa111'
+//   }
+// }
+
+export const getOrCreateProfile = (profile, history) => (
   dispatch,
   getState
 ) => {
-  console.log('AuthURL', apiUrl + `profiles/profile_${authResult.profile.sub}`)
-  fetch(apiUrl + `profiles/profile_${authResult.profile.sub}`)
+  console.log('profile', profile)
+  console.log('URL', apiUrl + `profiles/profile_${profile._id}`)
+  fetch(apiUrl + `profiles/profile_${profile._id}`)
     .then(res => res.json())
     .then(data => {
       console.log('dispatchin to state', data)
       dispatch({ type: SET_PROFILE, payload: data })
-      history.push('/profile')
+      //history.push('/profile')
     })
     .catch(err => console.log(err))
 }

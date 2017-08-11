@@ -64,7 +64,7 @@ export default () => {
     }
 
     console.log('profile', profile)
-    store.dispatch(getOrCreateProfile(profile, history))
+    //store.dispatch(getOrCreateProfile(profile, history))
     //auth0.authorize()
   }
 
