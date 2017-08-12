@@ -1,7 +1,5 @@
 import React from 'react'
 import ShowContactHeader from '../containers/show-contact-header'
-import BigButton from '../components/big-button'
-import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 
 const ShowContact = function() {
@@ -15,6 +13,7 @@ const ShowContact = function() {
         <div className="tc">
           <img
             src="https://s-media-cache-ak0.pinimg.com/736x/a6/64/0b/a6640be3553f29c9b0605052b1e938e9--guitar-players-rockstars.jpg"
+            alt=""
             className="br4 h5 w5 dib ba b--black-05 pa2"
             title="Photo of a kitty staring at you"
           />

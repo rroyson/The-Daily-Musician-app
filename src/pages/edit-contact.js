@@ -1,8 +1,5 @@
 import React from 'react'
 import EditContactHeader from '../containers/edit-contact-header'
-import BigButton from '../components/big-button'
-import { Link } from 'react-router-dom'
-import LoginHeader from '../containers/login-header'
 import { TextField, Button } from 't63'
 import Footer from '../containers/footer'
 
@@ -27,6 +24,7 @@ const EditContact = function() {
                 <img
                   className="h3 w3 ba pa2 br2 mr2"
                   src="https://placehold.it/64x64?text='photo'"
+                  alt=""
                 />
 
                 <Button

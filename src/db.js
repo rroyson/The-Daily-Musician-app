@@ -1,9 +1,12 @@
 import fetch from 'isomorphic-fetch'
-import { SET_PROFILE } from './constants'
-import { Redirect } from 'react-router-dom'
-console.log('SET_PROFILE', SET_PROFILE)
+import {
+  SET_PROFILE,
+  SET_EDITED_PROFILE,
+  SET_PROFILE_CONTACTS
+} from './constants'
 
 const apiUrl = process.env.REACT_APP_API_URL
+// console.log(process.env)
 
 const getOptions = (token, method = 'GET', body = null) => {
   return {
@@ -16,45 +19,61 @@ const getOptions = (token, method = 'GET', body = null) => {
   }
 }
 
-// export const getProfile = authProfileID => (dispatch, getState) => {
-//   fetch(apiURL + `profiles/${authProfileID}`, getState())
-//     .then(res => res.json())
-//     .then(data => dispatch({ type: SET_PROFILE, payload: data }))
-// }
+export const getProfile = profileId => (dispatch, getState) => {
+  console.log('profile id', profileId)
 
-// const profile = {
-//   access_token: 'MfwYfskQTyGTXeEH',
-//   id_token: '',
-//   expires_at: null,
-//   profile: {
-//     name: 'Trip Ottinger',
-//     given_name: 'Trip',
-//     family_name: 'Ottinger',
-//     nickname: 'tripott',
-//     picture:
-//       'https://lh6.googleusercontent.com/-hskkKrbgVew/AAAAAAAAAAI/AAAAAAAADvQ/0Ty55l0neis/photo.jpg',
-//     gender: 'male',
-//     locale: 'en',
-//     updated_at: '2017-08-10T19:27:00.152Z',
-//     sub: 'aaa111'
-//   }
-// }
-
-export const getOrCreateProfile = (profile, history) => (
-  dispatch,
-  getState
-) => {
-  console.log('profile', profile)
-  console.log('URL', apiUrl + `profiles/profile_${profile._id}`)
-  fetch(apiUrl + `profiles/profile_${profile._id}`)
+  fetch(apiUrl + `profile/${profileId}`, getOptions)
     .then(res => res.json())
-    .then(data => {
-      console.log('dispatchin to state', data)
-      dispatch({ type: SET_PROFILE, payload: data })
-      //history.push('/profile')
-    })
-    .catch(err => console.log(err))
+    .then(data => dispatch({ type: SET_PROFILE, payload: data }))
 }
+
+export const editProfile = history => (dispatch, getState) => {
+  const profile = getState().profile
+  fetch(apiUrl + 'profile/' + profile._id, getOptions('PUT', profile))
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: SET_EDITED_PROFILE,
+        payload: {
+          _id: '',
+          _rev: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          dob: '',
+          gender: '',
+          bandName: '',
+          genre: '',
+          photo: '',
+          contacts: []
+        }
+      })
+    )
+    .then(() => history.push('/profile'))
+}
+
+export const getContacts = profileId => (dispatch, getState) => {
+  console.log('profile id', profileId)
+
+  fetch(apiUrl + `profile/${profileId}/contacts`, getOptions)
+    .then(res => res.json())
+    .then(data => dispatch({ type: SET_PROFILE_CONTACTS, payload: data }))
+}
+
+// export const getOrCreateProfile = (authResult, history) => (
+//   dispatch,
+//   getState
+// ) => {
+//   console.log('AuthURL', apiUrl + `profiles/profile_${authResult.profile.sub}`)
+//   fetch(apiUrl + `profiles/profile_${authResult.profile.sub}`)
+//     .then(res => res.json())
+//     .then(data => {
+//       console.log('dispatchin to state', data)
+//       dispatch({ type: SET_PROFILE, payload: data })
+//       history.push('/profile')
+//     })
+//     .catch(err => console.log(err))
+// }
 
 // hey api, ive got the authProfileID, does this person exist in the db?
 // export const getOrCreateProfile = (profile) => (dispatch, getState) => {

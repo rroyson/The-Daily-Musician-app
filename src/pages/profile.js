@@ -1,13 +1,13 @@
 import React from 'react'
 import HomeHeader from '../containers/home-header'
-import BigButton from '../components/big-button'
-import { Link } from 'react-router-dom'
-import Footer from '../containers/footer'
 
-const Profile = function() {
+import Footer from '../containers/footer'
+import { connect } from 'react-redux'
+
+const Profile = function(props) {
   return (
     <div className="bg-light-gray">
-      <div classNameName="mb5">
+      <div className="mb5">
         <HomeHeader />
 
       </div>
@@ -16,12 +16,17 @@ const Profile = function() {
         <div className="tc">
 
           <img
-            src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/16683989_10154223366415143_3361905094158948931_n.jpg?oh=851e97232516d9ba3244cee2fd099bdf&oe=59F2BBE1"
+            src={props.profiles.photo}
+            alt=""
             className="br4 h5 w5 dib ba b--black-05 pa2"
             title="Photo of a kitty staring at you"
           />
-          <h1 className="f3 mb2">Rob Royson</h1>
-          <h2 className="f5 fw4 gray mt0">Guitartist at (DTSMB)</h2>
+          <h1 className="f3 mb2">
+            {props.profiles.firstName} {props.profiles.lastName}
+          </h1>
+          <h2 className="f5 fw4 gray mt0">
+            Affiliate at {props.profiles.bandName}
+          </h2>
         </div>
 
       </article>
@@ -32,4 +37,14 @@ const Profile = function() {
     </div>
   )
 }
-export default Profile
+
+function mapStateToProps(state) {
+  console.log('state', state)
+  return {
+    profiles: state.profiles
+  }
+}
+
+const connector = connect(mapStateToProps)
+
+export default connector(Profile)

@@ -1,6 +1,4 @@
 import React from 'react'
-import BigButton from '../components/big-button'
-import { Link } from 'react-router-dom'
 import EditContactHeader from '../containers/edit-contact-header'
 import { TextField, Button } from 't63'
 import Footer from '../containers/footer'
@@ -26,6 +24,7 @@ const VenueForm = function() {
                 <img
                   className="h3 w3 ba pa2 br2 mr2"
                   src="https://placehold.it/64x64?text='photo'"
+                  alt=""
                 />
 
                 <Button

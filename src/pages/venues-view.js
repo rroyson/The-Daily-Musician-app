@@ -1,6 +1,5 @@
 import React from 'react'
 import VenueListHeader from '../containers/venue-list-header'
-import BigButton from '../components/big-button'
 import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 
@@ -14,6 +13,7 @@ const Venues = function() {
           <div className="dtc w2 w3-ns v-mid">
             <img
               src="https://image-ticketfly.imgix.net/00/01/67/95/31-og.png?w=300&h=214"
+              alt=""
               className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns"
             />
           </div>

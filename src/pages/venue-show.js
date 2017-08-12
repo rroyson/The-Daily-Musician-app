@@ -1,6 +1,5 @@
 import React from 'react'
 import EditContactHeader from '../containers/edit-contact-header'
-import BigButton from '../components/big-button'
 import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 import { Button } from 't63'
@@ -16,6 +15,7 @@ const ShowVenue = function() {
         <div className="tc">
           <img
             src="https://image-ticketfly.imgix.net/00/01/67/95/31-og.png?w=300&h=214"
+            alt=""
             className="br4 h5 w5 dib ba b--black-05 pa2"
             title="Photo of a kitty staring at you"
           />
@@ -32,6 +32,7 @@ const ShowVenue = function() {
           <img
             className="w2 h2 w3-ns h3-ns br-100"
             src="http://tachyons.io/img/avatar-mrmrs.jpg"
+            alt=""
           />
 
           <div className="pl3 flex-auto">

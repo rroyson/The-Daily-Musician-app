@@ -1,0 +1,8 @@
+export const SET_PROFILE = 'SET_PROFILE'
+export const SET_EDITED_PROFILE = 'SET_EDITED_PROFILE'
+
+export const CLEAR_PROFILE = 'CLEAR_PROFILE'
+export const SET_APP = 'SET_APP'
+export const SET_SESSION = 'SET_SESSION'
+export const SET_PROFILE_X = 'SET_PROFILE_X'
+export const SET_PROFILE_CONTACTS = 'SET_PROFILE_CONTACTS'
