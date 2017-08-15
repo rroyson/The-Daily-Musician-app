@@ -3,12 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import history from './history'
 import Profile from './pages/profile'
 import Welcome from './pages/welcome'
-import ProfileForm from './pages/create-profile'
-// import Profile from './pages/view-profile'
 import Contacts from './pages/view-contacts'
-import EditProfile from './pages/edit-profile'
+import ProfileForm from './pages/create-edit-profile'
 import ShowContact from './pages/show-contact'
-import EditContact from './pages/edit-contact'
+import ContactForm from './pages/create-edit-contact'
 import AddContact from './pages/add-contact'
 import VenueForm from './pages/venue-create'
 import ShowVenue from './pages/venue-show'
@@ -22,13 +20,22 @@ const App = function(props) {
       <div>
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route path="/profile/:id/contacts" component={Contacts} />
-          <Route path="/profile/edit" component={EditProfile} />
-          <Route path="/profile/:id" component={ProfileForm} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/contacts/new" component={AddContact} />
-          <Route path="/contacts/:id/edit" component={EditContact} />
-          <Route path="/contacts/:id" component={ShowContact} />
+          <Route
+            path="/profiles/:profileId/contacts/:contactId"
+            component={ShowContact}
+          />
+
+          <Route
+            path="/profiles/:profileId/contacts/:contactId/edit"
+            component={ContactForm}
+          />
+          <Route
+            path="/profiles/:profileId/contacts/new"
+            component={ContactForm}
+          />
+          <Route path="/profiles/:id/contacts" component={Contacts} />
+          <Route path="/profiles/:id/edit" component={ProfileForm} />
+          <Route path="/profiles" component={Profile} />
           <Route path="/venues/new" component={VenueForm} />
           <Route path="/venues/:id/edit" component={EditVenueForm} />
           <Route path="/venues/:id" component={ShowVenue} />

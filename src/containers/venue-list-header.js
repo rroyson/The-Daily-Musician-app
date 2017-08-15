@@ -9,9 +9,9 @@ const VenueListHeader = props => {
           <i className="f3 white-60 ion-chevron-left" />
         </div>
       </Link>
-      <div className="white-60">Venues</div>
+      <div className="white-60 athelas f4">Venues</div>
       <div className="mr2">
-        <Link className=" link white ion-plus" to="/venues/new" />
+        <Link className=" link white-60 ion-plus" to="/venues/new" />
       </div>
     </header>
   )

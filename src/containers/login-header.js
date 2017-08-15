@@ -9,7 +9,7 @@ const LoginHeader = props => {
           <i className="f3 ion-chevron-left" />
         </Link>
       </div>
-      <div className="white-60 athelas fw1 f3">The Daily Musician</div>
+      <div className="white-60 athelas f4">The Daily Musician</div>
       <div className="mr2">
         <Link className="link white-60" to="/home">
           <i className="f3 white-60 ion-information-circled" />

@@ -58,6 +58,9 @@ function mapActionsToProps(dispatch) {
     handleClick: history => e => {
       e.preventDefault()
       // dispatch(getProfile())
+      // dispatch(
+      //   profile => (profile ? profile : history.push('/profile/:id/edit'))
+      // )
       history.push('/profile')
     }
   }

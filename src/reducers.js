@@ -6,7 +6,9 @@ import {
   SET_EDITED_PROFILE,
   SET_PROFILE_CONTACTS,
   SET_PROFILE_X,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  SET_CONTACT_X,
+  SET_PROFILE_CONTACT
 } from './constants'
 
 function app(state = { title: 'The Daily Musician' }, action) {
@@ -28,6 +30,7 @@ const profileDefault = {
   gender: 'M',
   bandName: 'Rosanne',
   genre: 'hmmmmmm',
+  phone: '(803)-727-1234',
   photo: 'https://www.fillmurray.com/100/100',
   contacts: [
     {
@@ -42,15 +45,8 @@ const profiles = (state = profileDefault, action) => {
   switch (action.type) {
     case SET_PROFILE:
       return action.payload
-
-      return {}
-    default:
-      return state
-  }
-}
-
-const profile = (state = profileEmptyDefault, action) => {
-  switch (action.type) {
+    case SET_PROFILE_X + '_ID':
+      return merge(state, { _id: action.payload })
     case SET_PROFILE_X + 'FIRSTNAME':
       return merge(state, { firstName: action.payload })
     case SET_PROFILE_X + 'LASTNAME':
@@ -70,10 +66,10 @@ const profile = (state = profileEmptyDefault, action) => {
     case CLEAR_PROFILE:
       return state
 
+      return {}
     default:
       return state
   }
-  // return state
 }
 
 const profileEmptyDefault = {
@@ -91,53 +87,21 @@ const profileEmptyDefault = {
   type: ''
 }
 
-//   return cond([
-//     [
-//       equals(SET_PROFILE_X + 'FIRSTNAME'),
-//       type => merge(state, { firstName: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'LASTNAME'),
-//       type => merge(state, { lastName: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'DOB'),
-//       type => merge(state, { dob: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'GENDER'),
-//       type => merge(state, { gender: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'PHOTO'),
-//       type => merge(state, { photo: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'GENRE'),
-//       type => merge(state, { photo: action.payload })
-//     ],
-//     [
-//       equals(SET_PROFILE_X + 'BANDNAME'),
-//       type => merge(state, { photo: action.payload })
-//     ][(equals(SET_PROFILE), always(action.payload))],
-//     [equals(CLEAR_PROFILE), always(action.payload)],
-//     [T, always(state)]
-//   ])(action.type)
-// }
-
-const contactDefault = {
-  _id: 'contact_profile_aaa111_daniel_maddox_dan@drums',
-  _rev: '1-19996b1cc8b019fbf4fccf4b9ef000fb',
-  firstName: 'Daniel',
-  lastName: 'Maddox',
-  email: 'dan@Drums.com',
-  phone: '843-555-4444',
-  company: 'fsons',
-  photo: 'https://www.fillmurray.com/100/100',
-  venueId: 'venue_fsons_charleston_sc_234jk24',
-  profileId: 'profile_aaa111',
-  type: 'contact'
-}
+const contactDefault = [
+  {
+    _id: 'contact_profile_aaa111_daniel_maddox_dan@drums',
+    _rev: '1-19996b1cc8b019fbf4fccf4b9ef000fb',
+    firstName: 'Daniel',
+    lastName: 'Maddox',
+    email: 'dan@Drums.com',
+    phone: '843-555-4444',
+    company: 'fsons',
+    photo: 'https://www.fillmurray.com/100/100',
+    venueId: 'venue_fsons_charleston_sc_234jk24',
+    profileId: 'profile_aaa111',
+    type: 'contact'
+  }
+]
 
 const contacts = (state = contactDefault, action) => {
   switch (action.type) {
@@ -148,9 +112,30 @@ const contacts = (state = contactDefault, action) => {
   }
 }
 
+const contact = (state = contactDefault, action) => {
+  switch (action.type) {
+    case SET_PROFILE_CONTACT:
+      return action.payload
+    case SET_CONTACT_X + 'FIRSTNAME':
+      return merge(state, { firstName: action.payload })
+    case SET_CONTACT_X + 'LASTNAME':
+      return merge(state, { lastName: action.payload })
+    case SET_CONTACT_X + 'COMPANY':
+      return merge(state, { company: action.payload })
+    case SET_CONTACT_X + 'PHONE':
+      return merge(state, { phone: action.payload })
+    case SET_CONTACT_X + 'EMAIL':
+      return merge(state, { email: action.payload })
+    case SET_CONTACT_X + 'PHOTO':
+      return merge(state, { photo: action.payload })
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   app,
   profiles,
-  profile,
-  contacts
+  contacts,
+  contact
 })

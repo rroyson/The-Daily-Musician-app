@@ -22,8 +22,8 @@
   },
   "scripts": {
     "start": "nf start",
-    "api": "json-server --watch db.json -p 4000",
-    "web": "react-scripts start",
+
+    "web": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "standard",
     "eject": "react-scripts eject",

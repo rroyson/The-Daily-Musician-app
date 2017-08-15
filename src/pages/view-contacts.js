@@ -5,58 +5,89 @@ import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { map } from 'ramda'
 import { getContacts } from '../db'
+import { ListItem } from 't63'
+import { SET_PROFILE_CONTACTS } from '../constants'
 
-const li = props => {
-  console.log('props', props)
+const li = contact => {
   return (
-    <main className="mw6 center">
-      <article className="dt w-100 bb b--black-05 pb2 mt2" href="#0">
-        <div className="dtc w2 w3-ns v-mid">
-          <img
-            src=""
-            alt=""
-            className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns"
-          />
-        </div>
-        <div className="dtc v-mid pl3">
-          <h1 className="f6 f5-ns fw6 lh-title black mv0">
-            console.log('props', props.contacts)
-
-          </h1>
-          <h2 className="f6 fw4 mt0 mb0 black-60">AC/DC</h2>
-        </div>
-        <div className="dtc v-mid">
-          <form className="w-100 tr">
-            <Link className="link black-60" to="/contacts/:id">
-              <button
-                className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
-                type="submit"
+    <div>
+      <main className="mw6 center">
+        <article className="dt w-100 bb b--black-05 pb2 mt2" href="#0">
+          <div className="dtc w2 w3-ns v-mid">
+            <img
+              src={contact.photo}
+              alt=""
+              className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns"
+            />
+          </div>
+          <div className="dtc v-mid pl3">
+            <h1 className="f6 f5-ns fw6 lh-title black mv0">
+              {contact.firstName} {contact.lastName}{' '}
+            </h1>
+            <h2 className="f6 fw4 mt0 mb0 black-60">{contact.company}</h2>
+          </div>
+          <div className="dtc v-mid">
+            <form className="w-100 tr">
+              <Link
+                className="link black-60"
+                to={`/profiles/${contact.profileId}/contats/${contact._id}`}
               >
-                Details
-              </button>
-            </Link>
-          </form>
-        </div>
-      </article>
-    </main>
+                <button
+                  className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
+                  type="submit"
+                >
+                  Details
+                </button>
+              </Link>
+            </form>
+          </div>
+        </article>
+      </main>
+    </div>
   )
 }
 
 class Contacts extends React.Component {
   componentDidMount() {
     const profileId = this.props.match.params.id
+    console.log('profileId', profileId)
     this.props.dispatch(getContacts(profileId))
+
+    if (profileId) {
+      this.props.dispatch(getContacts(profileId))
+    } else {
+      this.props.dispatch({
+        type: SET_PROFILE_CONTACTS,
+        payload: {
+          profileId: profileId,
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          gender: '',
+          company: '',
+          genre: '',
+          photo: ''
+        }
+      })
+    }
+
+    // const contactId = this.props.match.params.contactId
+
+    //console.log('contactId', contactId)
+    console.log('profileId', profileId)
   }
 
   render() {
+    //const data = this.props.contacts
     return (
       <div>
         <Header />
-
-        <list>
-          {/*{map(li, this.props.contacts)}*/}
-        </list>
-
+        <div>
+          <list>
+            {map(li, this.props.contacts)}
+          </list>
+        </div>
         <Footer />
 
       </div>
@@ -70,10 +101,13 @@ class Contacts extends React.Component {
 //     contacts: profileContacts
 //   }
 // }
+
 function mapStateToProps(state) {
-  console.log('state', state)
+  console.log('contact', state.contact)
+  console.log('contacts', state.contacts)
   return {
     contacts: state.contacts
+    //contact: state.contact
   }
 }
 

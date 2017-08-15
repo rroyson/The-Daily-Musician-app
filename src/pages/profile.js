@@ -5,6 +5,7 @@ import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 
 const Profile = function(props) {
+  console.log('profile props', props)
   return (
     <div className="bg-light-gray">
       <div className="mb5">
@@ -39,7 +40,7 @@ const Profile = function(props) {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state)
+  console.log('profile state', state)
   return {
     profiles: state.profiles
   }

@@ -9,11 +9,12 @@ const MainHeader = props => {
           <i className="f3 white-60 ion-chevron-left" />
         </div>
       </Link>
-      <div className="white-60">Contacts</div>
+      <div className="white-60 athelas f4">Contacts</div>
       <div className="mr2">
-        <Link className="link white-60" to="/contacts/new">
-          new
-        </Link>
+        <Link
+          className=" link white-60 ion-plus"
+          to="/profiles/:id/contacts/new"
+        />
       </div>
     </header>
   )

@@ -1,39 +1,48 @@
 import fetch from 'isomorphic-fetch'
 import {
   SET_PROFILE,
-  SET_EDITED_PROFILE,
-  SET_PROFILE_CONTACTS
+  SET_PROFILE_CONTACTS,
+  SET_PROFILE_CONTACT
 } from './constants'
-
+import { assoc, pathOr } from 'ramda'
 const apiUrl = process.env.REACT_APP_API_URL
 // console.log(process.env)
 
-const getOptions = (token, method = 'GET', body = null) => {
+// const getOptions = (token, method = 'GET', body = null) => {
+//   return {
+//     method,
+//     headers: {
+//       'Content-Type': 'application-json',
+//       authorization: 'Bearer ' + token
+//     },
+//     body: body && JSON.stringify(body)
+//   }
+// }
+const getOptions = (method = 'GET', body = null) => {
   return {
     method,
     headers: {
-      'Content-Type': 'application-json',
-      authorization: 'Bearer ' + token
+      'Content-Type': 'application/json'
     },
     body: body && JSON.stringify(body)
   }
 }
 
 export const getProfile = profileId => (dispatch, getState) => {
-  console.log('profile id', profileId)
-
   fetch(apiUrl + `profile/${profileId}`, getOptions)
     .then(res => res.json())
+    .then(profiles => console.log(profiles))
     .then(data => dispatch({ type: SET_PROFILE, payload: data }))
 }
 
 export const editProfile = history => (dispatch, getState) => {
   const profile = getState().profile
+
   fetch(apiUrl + 'profile/' + profile._id, getOptions('PUT', profile))
     .then(res => res.json())
     .then(data =>
       dispatch({
-        type: SET_EDITED_PROFILE,
+        type: SET_PROFILE,
         payload: {
           _id: '',
           _rev: '',
@@ -52,12 +61,128 @@ export const editProfile = history => (dispatch, getState) => {
     .then(() => history.push('/profile'))
 }
 
-export const getContacts = profileId => (dispatch, getState) => {
-  console.log('profile id', profileId)
+export const removeProfile = history => (dispatch, getState) => {
+  const profiles = getState().profiles
+  fetch(apiUrl + 'profiles/' + profiles._id, getOptions(getState(), 'DELETE'))
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: SET_PROFILE,
+        payload: {
+          _id: '',
+          _rev: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          dob: '',
+          gender: '',
+          bandName: '',
+          genre: '',
+          photo: '',
+          contacts: []
+        }
+      })
+    )
+    .then(() => history.push('/login'))
+}
 
-  fetch(apiUrl + `profile/${profileId}/contacts`, getOptions)
+export const getContacts = profileId => (dispatch, getState) => {
+  fetch(apiUrl + `profiles/${profileId}/contacts`, getOptions)
     .then(res => res.json())
     .then(data => dispatch({ type: SET_PROFILE_CONTACTS, payload: data }))
+}
+
+export const getContact = (profileId, contactId) => (dispatch, getState) => {
+  const options = getOptions(getState())
+
+  fetch(apiUrl + `profiles/${profileId}/contacts/${contactId}`, getState)
+    .then(res => res.json())
+    .then(data => dispatch({ type: SET_PROFILE_CONTACT, payload: data }))
+    .catch(err => console.log(err))
+}
+
+export const removeContact = history => (dispatch, getState) => {
+  const contacts = getState().contacts
+  fetch(apiUrl + 'contacts/' + contacts._id, getOptions(getState(), 'DELETE'))
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: SET_PROFILE_CONTACT,
+        payload: {
+          _id: '',
+          _rev: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          dob: '',
+          gender: '',
+          bandName: '',
+          genre: '',
+          photo: '',
+          contacts: [],
+          type: ''
+        }
+      })
+    )
+    .then(() => history.push('/login'))
+}
+
+export const createContact = history => (dispatch, getState) => {
+  console.log(history, 'history')
+  const profileId = pathOr(null, ['profileId'], getState().contact)
+  if (profileId) {
+    fetch(
+      apiUrl + `profiles/${profileId}/contacts`,
+      getOptions('POST', getState().contact)
+    )
+      .then(res => res.json())
+      .then(data =>
+        dispatch({
+          type: SET_PROFILE_CONTACT,
+          payload: {
+            firstName: '',
+            lastName: '',
+            phone: '',
+            email: '',
+            company: '',
+            photo: ''
+          }
+        })
+      )
+      .then(() => history.push(`/profiles/${profileId}/contacts`))
+  }
+}
+
+export const editContact = history => (dispatch, getState) => {
+  const contact = getState().contact
+  console.log('contact', contact)
+  console.log(getOptions('PUT', contact))
+
+  fetch(
+    apiUrl + `profiles/${contact.profileId}/contacts/${contact._id}`,
+    getOptions('PUT', contact)
+  )
+    .then(res => res.json())
+    .then(data =>
+      dispatch({
+        type: SET_PROFILE_CONTACT,
+        payload: {
+          _id: '',
+          _rev: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          dob: '',
+          gender: '',
+          bandName: '',
+          genre: '',
+          photo: '',
+          contacts: []
+        }
+      })
+    )
+    .then(() => history.push('/contacts'))
+    .catch(err => console.log(err))
 }
 
 // export const getOrCreateProfile = (authResult, history) => (

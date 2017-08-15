@@ -3,20 +3,23 @@ import EditProfileHeader from '../containers/edit-profile-header'
 import { TextField, Button } from 't63'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
-import { SET_PROFILE_X, SET_EDITED_PROFILE } from '../constants'
+import { SET_PROFILE_X, SET_EDITED_PROFILE, SET_PROFILE } from '../constants'
 import { toUpper, compose, head, path, pathOr } from 'ramda'
 import { editProfile, getProfile } from '../db'
 import FileInput from '../components/file-input'
 
-class EditProfile extends React.Component {
+class ProfileForm extends React.Component {
   componentDidMount() {
     const id = pathOr(null, ['props', 'match', 'params', 'id'], this)
+    console.log('id', id)
     if (id) {
       this.props.dispatch(getProfile(id))
     } else {
       this.props.dispatch({
-        type: SET_EDITED_PROFILE,
+        type: SET_PROFILE,
         payload: {
+          _id: '',
+          _rev: '',
           firstName: '',
           lastName: '',
           email: '',
@@ -41,10 +44,11 @@ class EditProfile extends React.Component {
           <main className="overflow-scroll ph2 black-70">
             <h2 className="f4 f2-ns tc">Edit Profile</h2>
             <form
-              className="ph2"
+              className="ph2 flex flex-column"
               onSubmit={props.submitProfile(props._id, props.history)}
             >
               <TextField
+                className=""
                 value={props.firstName}
                 onChange={props.handleFirstName}
                 name="First Name"
@@ -173,17 +177,19 @@ function mapActionsToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  console.log('edit state', state)
   return {
-    firstName: state.profile.firstName,
-    lastName: state.profile.lastName,
-    dob: state.profile.dob,
-    genre: state.profile.genre,
-    photo: state.profile.photo,
-    gender: state.profile.gender,
-    bandName: state.profile.bandName
+    _id: state.profiles._id,
+    firstName: state.profiles.firstName,
+    lastName: state.profiles.lastName,
+    dob: state.profiles.dob,
+    genre: state.profiles.genre,
+    photo: state.profiles.photo,
+    gender: state.profiles.gender,
+    bandName: state.profiles.bandName
   }
 }
 
 const connector = connect(mapStateToProps, mapActionsToProps)
 
-export default connector(EditProfile)
+export default connector(ProfileForm)
