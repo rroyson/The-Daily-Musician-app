@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const Footer = props => {
   return (
     <footer className="h3 flex flex-row justify-between items-center bg-dark-gray">
       <div className="ml3 white">
-        <Link className="link white-60" to="/profile">
+        <Link className="link white-60" to={`/profiles/${props.profiles._id}`}>
           <i className="db tc ion-person" />
           Home
         </Link>
@@ -17,7 +18,10 @@ const Footer = props => {
         </Link>
       </div>
       <div>
-        <Link className="link white-60" to="/profile/:id/contacts">
+        <Link
+          className="link white-60"
+          to={`/profiles/${props.profiles._id}/contacts`}
+        >
           <i className="db tc ion-person-stalker" />
           Contacts
         </Link>
@@ -33,4 +37,12 @@ const Footer = props => {
   )
 }
 
-export default Footer
+const connector = connect(mapStateToProps)
+
+function mapStateToProps(state) {
+  return {
+    profiles: state.profiles
+  }
+}
+
+export default connector(Footer)

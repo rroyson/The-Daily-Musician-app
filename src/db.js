@@ -29,16 +29,17 @@ const getOptions = (method = 'GET', body = null) => {
 }
 
 export const getProfile = profileId => (dispatch, getState) => {
-  fetch(apiUrl + `profile/${profileId}`, getOptions)
+  fetch(apiUrl + `profiles/${profileId}`, getState())
     .then(res => res.json())
-    .then(profiles => console.log(profiles))
     .then(data => dispatch({ type: SET_PROFILE, payload: data }))
 }
 
 export const editProfile = history => (dispatch, getState) => {
+  console.log('editProfile')
   const profile = getState().profile
-
-  fetch(apiUrl + 'profile/' + profile._id, getOptions('PUT', profile))
+  console.log('getState', getState().profile)
+  console.log('options', getOptions())
+  fetch(apiUrl + 'profiles/' + profile._id, getOptions('PUT', profile))
     .then(res => res.json())
     .then(data =>
       dispatch({
@@ -92,18 +93,32 @@ export const getContacts = profileId => (dispatch, getState) => {
     .then(data => dispatch({ type: SET_PROFILE_CONTACTS, payload: data }))
 }
 
-export const getContact = (profileId, contactId) => (dispatch, getState) => {
+export const getContact = (profileId, contactId, history) => (
+  dispatch,
+  getState
+) => {
+  const contact = getState().contact
   const options = getOptions(getState())
 
-  fetch(apiUrl + `profiles/${profileId}/contacts/${contactId}`, getState)
+  fetch(apiUrl + `profiles/${profileId}/contacts/${contactId}`)
     .then(res => res.json())
     .then(data => dispatch({ type: SET_PROFILE_CONTACT, payload: data }))
     .catch(err => console.log(err))
 }
 
-export const removeContact = history => (dispatch, getState) => {
-  const contacts = getState().contacts
-  fetch(apiUrl + 'contacts/' + contacts._id, getOptions(getState(), 'DELETE'))
+export const removeContact = (profileId, contactId, history) => (
+  dispatch,
+  getState
+) => {
+  console.log(profileId, 'profileId')
+  console.log(contactId, 'contactId')
+
+  const contact = getState().contact
+  fetch(
+    apiUrl + `profiles/${profileId}/contacts/${contactId}`,
+    getOptions(),
+    'DELETE'
+  )
     .then(res => res.json())
     .then(data =>
       dispatch({
@@ -124,11 +139,10 @@ export const removeContact = history => (dispatch, getState) => {
         }
       })
     )
-    .then(() => history.push('/login'))
+  //.then(() => history.push('/login'))
 }
 
 export const createContact = history => (dispatch, getState) => {
-  console.log(history, 'history')
   const profileId = pathOr(null, ['profileId'], getState().contact)
   if (profileId) {
     fetch(
@@ -155,8 +169,6 @@ export const createContact = history => (dispatch, getState) => {
 
 export const editContact = history => (dispatch, getState) => {
   const contact = getState().contact
-  console.log('contact', contact)
-  console.log(getOptions('PUT', contact))
 
   fetch(
     apiUrl + `profiles/${contact.profileId}/contacts/${contact._id}`,

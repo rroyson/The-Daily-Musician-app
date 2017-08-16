@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const MainHeader = props => {
   return (
     <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
-      <Link className="link black-60" to="/home/:id">
+      <Link className="link black-60" to={`/profiles/${props.profiles._id}`}>
         <div className="ml2">
           <i className="f3 white-60 ion-chevron-left" />
         </div>
@@ -13,11 +14,19 @@ const MainHeader = props => {
       <div className="mr2">
         <Link
           className=" link white-60 ion-plus"
-          to="/profiles/:id/contacts/new"
+          to={`/profiles/${props.profiles._id}/contacts/new`}
         />
       </div>
     </header>
   )
 }
 
-export default MainHeader
+const connector = connect(mapStateToProps)
+
+function mapStateToProps(state) {
+  return {
+    profiles: state.profiles
+  }
+}
+
+export default connector(MainHeader)

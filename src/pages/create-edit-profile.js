@@ -11,7 +11,6 @@ import FileInput from '../components/file-input'
 class ProfileForm extends React.Component {
   componentDidMount() {
     const id = pathOr(null, ['props', 'match', 'params', 'id'], this)
-    console.log('id', id)
     if (id) {
       this.props.dispatch(getProfile(id))
     } else {
@@ -160,7 +159,7 @@ function mapActionsToProps(dispatch) {
       //       dispatch(createProfile(history))
       //     }
       dispatch(editProfile)
-      // history.push(`profiles/${id}/contacts`)
+      //history.push(`profiles/${id}`)
     },
     handleFirstName: e => doDispatch('FIRSTNAME', e.target.value),
     handleBandName: e => doDispatch('BANDNAME', e.target.value),
@@ -177,7 +176,6 @@ function mapActionsToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('edit state', state)
   return {
     _id: state.profiles._id,
     firstName: state.profiles.firstName,

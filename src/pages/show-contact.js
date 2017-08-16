@@ -50,7 +50,11 @@ class ShowContact extends React.Component {
             </div>
             <div className="dtc v-mid">
               <form className="w-100 tr">
-                <Link className="link black-60" to="/contacts/:id">
+                <Link
+                  className="link black-60"
+                  to={`/profiles/${props.contact.profileId}/contacts/${props
+                    .contact._id}/edit`}
+                >
                   <button
                     className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
                     type="submit"

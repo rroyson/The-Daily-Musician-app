@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { map } from 'ramda'
-import { getContacts } from '../db'
-import { ListItem } from 't63'
+import { getContacts, getProfile } from '../db'
 import { SET_PROFILE_CONTACTS } from '../constants'
 
 const li = contact => {
+  console.log('contact', contact.profileId)
   return (
     <div>
       <main className="mw6 center">
@@ -30,11 +30,11 @@ const li = contact => {
             <form className="w-100 tr">
               <Link
                 className="link black-60"
-                to={`/profiles/${contact.profileId}/contats/${contact._id}`}
+                to={`/profiles/${contact.profileId}/contacts/${contact._id}`}
               >
                 <button
                   className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
-                  type="submit"
+                  type="button"
                 >
                   Details
                 </button>
@@ -50,32 +50,31 @@ const li = contact => {
 class Contacts extends React.Component {
   componentDidMount() {
     const profileId = this.props.match.params.id
-    console.log('profileId', profileId)
+    // this.props.dispatch(getProfile(profileId))
     this.props.dispatch(getContacts(profileId))
 
-    if (profileId) {
-      this.props.dispatch(getContacts(profileId))
-    } else {
-      this.props.dispatch({
-        type: SET_PROFILE_CONTACTS,
-        payload: {
-          profileId: profileId,
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          gender: '',
-          company: '',
-          genre: '',
-          photo: ''
-        }
-      })
-    }
+    // if (profileId) {
+    //   this.props.dispatch(getContacts(profileId))
+    // } else {
+    //   this.props.dispatch({
+    //     type: SET_PROFILE_CONTACTS,
+    //     payload: {
+    //       profileId: profileId,
+    //       firstName: '',
+    //       lastName: '',
+    //       email: '',
+    //       phone: '',
+    //       gender: '',
+    //       company: '',
+    //       genre: '',
+    //       photo: ''
+    //     }
+    //   })
+    // }
 
     // const contactId = this.props.match.params.contactId
 
     //console.log('contactId', contactId)
-    console.log('profileId', profileId)
   }
 
   render() {
@@ -94,20 +93,11 @@ class Contacts extends React.Component {
     )
   }
 }
-// const mapStateToProps = state => {
-//   console.log('state', state)
-//   const profileContacts = state.profile.contacts
-//   return {
-//     contacts: profileContacts
-//   }
-// }
 
 function mapStateToProps(state) {
-  console.log('contact', state.contact)
-  console.log('contacts', state.contacts)
   return {
     contacts: state.contacts
-    //contact: state.contact
+    //profiles: state.profiles
   }
 }
 

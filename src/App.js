@@ -21,21 +21,22 @@ const App = function(props) {
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route
-            path="/profiles/:profileId/contacts/:contactId"
-            component={ShowContact}
+            path="/profiles/:profileId/contacts/new"
+            component={ContactForm}
           />
-
           <Route
             path="/profiles/:profileId/contacts/:contactId/edit"
             component={ContactForm}
           />
           <Route
-            path="/profiles/:profileId/contacts/new"
-            component={ContactForm}
+            path="/profiles/:profileId/contacts/:contactId"
+            component={ShowContact}
           />
-          <Route path="/profiles/:id/contacts" component={Contacts} />
           <Route path="/profiles/:id/edit" component={ProfileForm} />
-          <Route path="/profiles" component={Profile} />
+
+          <Route path="/profiles/:id/contacts" component={Contacts} />
+
+          <Route path="/profiles/:id" component={Profile} />
           <Route path="/venues/new" component={VenueForm} />
           <Route path="/venues/:id/edit" component={EditVenueForm} />
           <Route path="/venues/:id" component={ShowVenue} />

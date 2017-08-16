@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { merge, equals, cond, always, T } from 'ramda'
+import { merge } from 'ramda'
 import {
   SET_APP,
   SET_PROFILE,

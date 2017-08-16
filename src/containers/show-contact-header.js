@@ -1,9 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { removeContact } from '../db'
+import { removeContact, getContact } from '../db'
 
 class ShowContactHeader extends React.Component {
+  componentDidMount() {
+    // const profileId = this.props.match.params.profileId
+    // // this.props.dispatch(getProfile(profileId))
+    //
+    // const contactId = this.props.match.params.contactId
+    // this.props.dispatch(getContact(profileId, contactId))
+  }
+
   render() {
     return (
       <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
@@ -28,18 +36,19 @@ class ShowContactHeader extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log('state', state.contact)
   return {
     contact: state.contact,
     profiles: state.profiles
   }
 }
 
-const mapActionsToProps = dispatch => {
+function mapActionsToProps(dispatch) {
   return {
     dispatch,
-    handleRemoveContact: history => e => {
+    handleRemoveContact: (profileId, contactId, history) => e => {
       if (window.confirm('Are you sure?')) {
-        dispatch(removeContact(history))
+        dispatch(removeContact(profileId, contactId, history))
       }
     }
   }
