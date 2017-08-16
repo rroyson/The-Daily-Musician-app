@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../containers/header'
+import ViewContactsHeader from '../containers/view-contacts-header'
 import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
@@ -50,6 +50,7 @@ const li = contact => {
 class Contacts extends React.Component {
   componentDidMount() {
     const profileId = this.props.match.params.id
+    console.log('props.contacts', this.props.contacts)
     // this.props.dispatch(getProfile(profileId))
     this.props.dispatch(getContacts(profileId))
 
@@ -81,10 +82,18 @@ class Contacts extends React.Component {
     //const data = this.props.contacts
     return (
       <div>
-        <Header />
+        <ViewContactsHeader profileId={this.props.match.params.id} />
         <div>
           <list>
-            {map(li, this.props.contacts)}
+
+            {this.props.contacts === []
+              ? <div className="pa4 mt4 mb4 ">
+                  <h1 className=" athelas fw4 tc fw6 lh-title black mv0 ">
+                    There are no contacts to view at this time
+                  </h1>
+                </div>
+              : map(li, this.props.contacts)}
+
           </list>
         </div>
         <Footer />

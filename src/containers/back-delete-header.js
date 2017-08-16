@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { removeContact, getContact } from '../db'
+import { removeProfile, removeContact, getContact } from '../db'
 
-class ShowContactHeader extends React.Component {
+class BackDeleteHeader extends React.Component {
   componentDidMount() {
-    // const profileId = this.props.match.params.profileId
+    // const profileId = this.props.profileId
     // // this.props.dispatch(getProfile(profileId))
     //
-    // const contactId = this.props.match.params.contactId
+    // const contactId = this.props.contactId
     // this.props.dispatch(getContact(profileId, contactId))
   }
 
@@ -20,12 +20,18 @@ class ShowContactHeader extends React.Component {
             <i className="f3 ion-chevron-left" />
           </Link>
         </div>
-        <div className="white-60 athelas f4">Contacts</div>
+        <div className="white-60 athelas f4">
+          {this.props.contactId ? 'Contacts' : 'Profile'}
+        </div>
         <div className="mr2">
           <Link
-            onClick={this.props.handleRemoveContact(this.props.history)}
+            onClick={this.props.handleRemoveContact(
+              this.props.profileId,
+              this.props.contactId,
+              this.props.history
+            )}
             className="link white-60"
-            to="profile/:id/contacts"
+            to={`profile/${this.props.profileId}/contacts`}
           >
             <i className="f3 mr1 white-60 ion-trash-a" />
           </Link>
@@ -36,7 +42,6 @@ class ShowContactHeader extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state.contact)
   return {
     contact: state.contact,
     profiles: state.profiles
@@ -47,8 +52,12 @@ function mapActionsToProps(dispatch) {
   return {
     dispatch,
     handleRemoveContact: (profileId, contactId, history) => e => {
-      if (window.confirm('Are you sure?')) {
-        dispatch(removeContact(profileId, contactId, history))
+      if (contactId) {
+        if (window.confirm('Are you sure you want to delete?')) {
+          dispatch(removeContact(profileId, contactId, history))
+        }
+      } else {
+        dispatch(removeProfile(profileId, history))
       }
     }
   }
@@ -56,4 +65,4 @@ function mapActionsToProps(dispatch) {
 
 const connector = connect(mapStateToProps, mapActionsToProps)
 
-export default connector(ShowContactHeader)
+export default connector(BackDeleteHeader)

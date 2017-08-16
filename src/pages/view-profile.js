@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../containers/header'
+//import ViewHeader from '../containers/view-header'
 import BigButton from '../components/big-button'
 import { Link } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ const Profile = function() {
   return (
     <div className="bg-light-gray">
       <div classNameName="mb5">
-        <Header />
+        {/*<ViewHeader />*/}
       </div>
 
       <article className="mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">

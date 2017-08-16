@@ -1,5 +1,6 @@
 import React from 'react'
 import EditContactHeader from '../containers/edit-contact-header'
+import BackDeleteHeader from '../containers/back-delete-header'
 import { TextField, Button } from 't63'
 import Footer from '../containers/footer'
 import { getContact, editContact, createContact } from '../db'
@@ -50,7 +51,13 @@ class ContactForm extends React.Component {
     return (
       <div>
 
-        <EditContactHeader />
+        <div>
+          <BackDeleteHeader
+            profileId={props.match.params.profileId}
+            contactId={props.match.params.contactId}
+            history={props.history}
+          />
+        </div>
         <div className="flex flex-column justify-start w-100 avenir">
 
           <main className="overflow-scroll ph2 black-70">

@@ -1,9 +1,10 @@
 import React from 'react'
-import ShowContactHeader from '../containers/show-contact-header'
+import BackDeleteHeader from '../containers/back-delete-header'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getContact, getProfile } from '../db'
+import { Button } from 't63'
 
 class ShowContact extends React.Component {
   componentDidMount() {
@@ -16,10 +17,15 @@ class ShowContact extends React.Component {
 
   render() {
     const props = this.props
+
     return (
       <div className="bg-light-gray">
-        <div className="mb5">
-          <ShowContactHeader />
+        <div>
+          <BackDeleteHeader
+            profileId={props.match.params.profileId}
+            contactId={props.match.params.contactId}
+            history={props.history}
+          />
         </div>
 
         <article className="mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
@@ -38,36 +44,45 @@ class ShowContact extends React.Component {
         </article>
 
         <main className="mw6 center">
-          <article className="dt w-100 bb b--black-05 pb2 mt2" href="#0">
 
-            <div className="dtc v-mid pl3">
-              <h1 className="f6 f5-ns fw6 lh-title black mv0">
-                Phone Number: {props.contact.phone}
-              </h1>
-              <h2 className="f6 fw4 mt0 mb0 black-60">
-                {props.contact.email}
-              </h2>
-            </div>
-            <div className="dtc v-mid">
-              <form className="w-100 tr">
-                <Link
-                  className="link black-60"
-                  to={`/profiles/${props.contact.profileId}/contacts/${props
-                    .contact._id}/edit`}
-                >
-                  <button
-                    className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
-                    type="submit"
-                  >
-                    Edit
-                  </button>
-                </Link>
-              </form>
-            </div>
-          </article>
+          <h2 className="tc flex-center">Contact Info</h2>
+          <ul className="list pl0 mt0 measure center">
+            <li className="flex items-center lh-copy pa3 ph0-l bb b--black-10">
+              <img
+                className="w2 h2 w3-ns h3-ns br-100"
+                src={[props.contact.companyPhoto]}
+                alt=""
+              />
+
+              <div className="pl3 flex-auto">
+                <span className="f6 db b black-70">
+                  {props.contact.firstName} {props.contact.lastName}
+                </span>
+                <span className="f6 db black-70">{props.contact.email}</span>
+              </div>
+              <div>
+                <a href="tel:" className="f6 link blue hover-dark-gray">
+                  {props.contact.phone}
+                </a>
+              </div>
+            </li>
+          </ul>
+          <div className="tc">
+            <Link
+              className="link"
+              to={`/profiles/${props.contact.profileId}/contacts/${props.contact
+                ._id}/edit`}
+            >
+              <Button className="w-75 bg-green ba br2 b--light-green">
+                Edit Contact
+              </Button>
+            </Link>
+          </div>
+
         </main>
 
         <Footer />
+
       </div>
     )
   }

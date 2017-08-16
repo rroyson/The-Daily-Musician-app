@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const MainHeader = props => {
+const ViewContactsHeader = props => {
+  console.log('props', props)
   return (
     <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
       <Link className="link black-60" to={`/profiles/${props.profiles._id}`}>
@@ -14,7 +15,7 @@ const MainHeader = props => {
       <div className="mr2">
         <Link
           className=" link white-60 ion-plus"
-          to={`/profiles/${props.profiles._id}/contacts/new`}
+          to={`/profiles/${props.profileId}/contacts/new`}
         />
       </div>
     </header>
@@ -29,4 +30,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connector(MainHeader)
+export default connector(ViewContactsHeader)

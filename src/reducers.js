@@ -41,7 +41,7 @@ const profileDefault = {
   type: 'profile'
 }
 
-const profiles = (state = profileDefault, action) => {
+const profiles = (state = profileEmptyDefault, action) => {
   switch (action.type) {
     case SET_PROFILE:
       return action.payload
@@ -87,21 +87,7 @@ const profileEmptyDefault = {
   type: ''
 }
 
-const contactDefault = [
-  {
-    _id: 'contact_profile_aaa111_daniel_maddox_dan@drums',
-    _rev: '1-19996b1cc8b019fbf4fccf4b9ef000fb',
-    firstName: 'Daniel',
-    lastName: 'Maddox',
-    email: 'dan@Drums.com',
-    phone: '843-555-4444',
-    company: 'fsons',
-    photo: 'https://www.fillmurray.com/100/100',
-    venueId: 'venue_fsons_charleston_sc_234jk24',
-    profileId: 'profile_aaa111',
-    type: 'contact'
-  }
-]
+const contactDefault = []
 
 const contacts = (state = contactDefault, action) => {
   switch (action.type) {

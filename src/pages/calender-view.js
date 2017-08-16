@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from '../containers/header'
+import ViewContactsHeader from '../containers/view-contacts-header'
 import Footer from '../containers/footer'
 
 const Calendar = function() {
   return (
     <div>
-      <Header />
+      <ViewContactsHeader />
       <h1 className="tc">Calender entered here</h1>
       <Footer />
     </div>

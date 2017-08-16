@@ -1,11 +1,11 @@
 import React from 'react'
-import EditProfileHeader from '../containers/edit-profile-header'
+import BackDeleteHeader from '../containers/back-delete-header'
 import { TextField, Button } from 't63'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { SET_PROFILE_X, SET_EDITED_PROFILE, SET_PROFILE } from '../constants'
 import { toUpper, compose, head, path, pathOr } from 'ramda'
-import { editProfile, getProfile } from '../db'
+import { editProfile, getProfile, createProfile } from '../db'
 import FileInput from '../components/file-input'
 
 class ProfileForm extends React.Component {
@@ -37,7 +37,11 @@ class ProfileForm extends React.Component {
     const props = this.props
     return (
       <div>
-        <EditProfileHeader />
+        <BackDeleteHeader
+          profileId={props.match.params.profileId}
+          contactId={props.match.params.contactId}
+          history={props.history}
+        />
         <div className="flex flex-column justify-start w-100 avenir">
 
           <main className="overflow-scroll ph2 black-70">
@@ -151,14 +155,13 @@ function mapActionsToProps(dispatch) {
   }
   return {
     dispatch,
-    submitProfile: history => id => e => {
+    submitProfile: (_id, history) => e => {
       e.preventDefault()
-      // if (_id) {
-      //       dispatch(editProfile(history))
-      //     } else {
-      //       dispatch(createProfile(history))
-      //     }
-      dispatch(editProfile)
+      if (_id) {
+        dispatch(editProfile(history))
+      } else {
+        dispatch(createProfile(history))
+      }
       //history.push(`profiles/${id}`)
     },
     handleFirstName: e => doDispatch('FIRSTNAME', e.target.value),
@@ -176,6 +179,7 @@ function mapActionsToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  console.log('state', state.profiles._id)
   return {
     _id: state.profiles._id,
     firstName: state.profiles.firstName,
