@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jquery": "^3.2.1",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -22,7 +23,6 @@
   },
   "scripts": {
     "start": "nf start",
-
     "web": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "standard",

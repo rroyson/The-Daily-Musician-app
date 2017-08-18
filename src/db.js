@@ -2,10 +2,13 @@ import fetch from 'isomorphic-fetch'
 import {
   SET_PROFILE,
   SET_PROFILE_CONTACTS,
-  SET_PROFILE_CONTACT
+  SET_PROFILE_CONTACT,
+  SET_VENUES,
+  SET_VENUES_SEARCH
 } from './constants'
-import { assoc, pathOr } from 'ramda'
+import { assoc, pathOr, map, pick, compose } from 'ramda'
 const apiUrl = process.env.REACT_APP_API_URL
+const venueUrl = process.env.REACT_APP_API_VENUE_URL
 // console.log(process.env)
 
 // const getOptions = (token, method = 'GET', body = null) => {
@@ -230,8 +233,47 @@ export const editContact = history => (dispatch, getState) => {
         }
       })
     )
-    .then(() => history.push(`/profiles/${profileId}/contacts`))
+    .then(() => history.push(`/profiles/${profileId}/contacts/${contact._id}`))
     .catch(err => console.log(err))
+}
+
+/////////////////////
+//////////VENUES
+////////////////////
+
+export const getVenues = history => (dispatch, getState) => {
+  const findVenues = getState().findVenues
+  const city = pathOr('', ['city'], findVenues)
+  const state = pathOr('', ['venueState'], findVenues)
+  const name = pathOr('', ['name'], findVenues)
+
+  fetch(
+    venueUrl +
+      `v=20161016&near=${city},${state}&query=${name}&intent=checkin&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,
+    getOptions
+  )
+    .then(res => res.json())
+    .then(data =>
+      compose(
+        map(v => ({
+          name: v.name,
+          phone: v.contact.formattedPhone,
+          city: v.location.city,
+          state: v.location.state,
+          address: v.location.address,
+          postalCode: v.location.postalCode,
+          country: v.location.country,
+          formattedAddress: v.location.formattedAddress,
+
+          url: v.url
+        })),
+        map(v => pick(['name', 'location', 'url', 'contact'], v)),
+        pathOr([], ['response', 'venues'])
+      )(data)
+    )
+    .then(composedResult =>
+      dispatch({ type: SET_VENUES_SEARCH, payload: composedResult })
+    )
 }
 
 // export const getOrCreateProfile = (authResult, history) => (
