@@ -6,7 +6,9 @@ const HomeHeader = props => {
   return (
     <header className="avenir flex flex-row justify-between items-center bg-dark-gray h3">
       <div className="ml2">
-        <i className="f3 white-60 ion-log-out" />
+        <Link to={'/'}>
+          <i className="f3 white-60 ion-log-out" />
+        </Link>
       </div>
       <div className="white-60 athelas f4">Profile</div>
       <div className="mr2">

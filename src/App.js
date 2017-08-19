@@ -33,7 +33,7 @@ const App = function(props) {
             component={ShowContact}
           />
           <Route path="/profiles/:id/edit" component={ProfileForm} />
-
+          <Route path="/profiles/new" component={ProfileForm} />
           <Route path="/profiles/:id/contacts" component={Contacts} />
 
           <Route path="/profiles/:id" component={Profile} />

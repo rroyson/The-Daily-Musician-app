@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getProfile } from '../db'
 import Logo from '../components/logo'
+import { Link } from 'react-router-dom'
 
 class Welcome extends React.Component {
   componentDidMount() {
-    console.log('props', this.props)
     // const profileId = this.props.match.params.id
     // this.props.dispatch(getProfile(profileId))
   }
@@ -31,13 +31,11 @@ class Welcome extends React.Component {
                     The space between the notes that make the music.
                   </p>
                   <div>
-
-                    <button
-                      className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                      onClick={this.props.handleClick(this.props.history)}
-                    >
-                      Login
-                    </button>
+                    <Link to={`/profiles/${this.props.profiles._id}`}>
+                      <button className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3">
+                        Login
+                      </button>
+                    </Link>
 
                   </div>
 
@@ -58,7 +56,8 @@ const mapStateToProps = state => {
   return {
     app: state.app,
     profile: state.profile,
-    logo: state.app.logo
+    logo: state.app.logo,
+    profiles: state.profiles
   }
 }
 
@@ -68,9 +67,11 @@ function mapActionsToProps(dispatch) {
       e.preventDefault()
       dispatch(getProfile())
       dispatch(
-        profile => (profile ? profile : history.push('/profiles/:id/edit'))
+        profile =>
+          profile
+            ? history.push(`/profiles/${profile._id}`)
+            : history.push('/profiles/new')
       )
-      history.push('/profiles')
     }
   }
 }
