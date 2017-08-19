@@ -4,7 +4,8 @@ import {
   SET_PROFILE_CONTACTS,
   SET_PROFILE_CONTACT,
   SET_VENUES,
-  SET_VENUES_SEARCH
+  SET_VENUES_SEARCH,
+  SET_VENUE
 } from './constants'
 import { assoc, pathOr, map, pick, compose } from 'ramda'
 const apiUrl = process.env.REACT_APP_API_URL
@@ -123,7 +124,7 @@ export const removeProfile = history => (dispatch, getState) => {
 }
 
 export const getContacts = profileId => (dispatch, getState) => {
-  fetch(apiUrl + `profiles/${profileId}/contacts`, getOptions)
+  fetch(apiUrl + `profiles/${profileId}/contacts?limit=10`, getOptions)
     .then(res => res.json())
     .then(data => dispatch({ type: SET_PROFILE_CONTACTS, payload: data }))
 }
@@ -256,6 +257,7 @@ export const getVenues = history => (dispatch, getState) => {
     .then(data =>
       compose(
         map(v => ({
+          _id: v.id,
           name: v.name,
           phone: v.contact.formattedPhone,
           city: v.location.city,
@@ -267,13 +269,23 @@ export const getVenues = history => (dispatch, getState) => {
 
           url: v.url
         })),
-        map(v => pick(['name', 'location', 'url', 'contact'], v)),
+        map(v => pick(['name', 'location', 'url', 'contact', 'id'], v)),
         pathOr([], ['response', 'venues'])
       )(data)
     )
     .then(composedResult =>
       dispatch({ type: SET_VENUES_SEARCH, payload: composedResult })
     )
+}
+
+export const getVenue = (venueId, history) => (dispatch, getState) => {
+  const venue = getState().findVenues
+  const options = getOptions(getState())
+
+  fetch(apiUrl + `venues/${venueId}`)
+    .then(res => res.json())
+    .then(data => dispatch({ type: SET_VENUE, payload: data }))
+    .catch(err => console.log(err))
 }
 
 // export const getOrCreateProfile = (authResult, history) => (

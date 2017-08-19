@@ -42,7 +42,7 @@ class ProfileForm extends React.Component {
           contactId={props.match.params.contactId}
           history={props.history}
         />
-        <div className="flex flex-column justify-start w-100 avenir">
+        <div className="flex flex-column justify-start bg-light-gray w-100 avenir">
 
           <main className="overflow-scroll ph2 black-70">
             <h2 className="f4 f2-ns tc">Edit Profile</h2>
@@ -50,53 +50,74 @@ class ProfileForm extends React.Component {
               className="ph2 flex flex-column"
               onSubmit={props.submitProfile(props._id, props.history)}
             >
-              <TextField
-                className=""
-                value={props.firstName}
-                onChange={props.handleFirstName}
-                name="First Name"
-                helptxt="First Name"
-              />
-              <TextField
-                value={props.lastName}
-                onChange={props.handleLastName}
-                name="Last Name"
-              />
-              <TextField
-                value={props.dob}
-                onChange={props.handleDob}
-                name="Birth Date"
-                placeholder="MM/DD/YYYY"
-              />
-              <TextField
-                value={props.bandName}
-                onChange={props.handleBandName}
-                name="Band Name"
-                placeholder="You're band here"
-              />
-              <TextField
-                value={props.genre}
-                onChange={props.handleGenre}
-                name="Genre"
-                placeholder="rock, indie, country, etc."
-              />
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6 ">
+                  First Name
+                </label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-20 measure"
+                  value={props.firstName}
+                  onChange={props.handleFirstName}
+                  placeholder="Tom"
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Last Name</label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-25 measure"
+                  value={props.lastName}
+                  onChange={props.handleLastName}
+                  placeholder="Morello"
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Birth Date</label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-10 measure"
+                  value={props.dob}
+                  onChange={props.handleDob}
+                  placeholder="dd/mm/yyyy"
+                />
+              </div>
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Band Name</label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-30 measure"
+                  value={props.bandName}
+                  onChange={props.handleBandName}
+                  placeholder="Rage Against The Machine"
+                />
+              </div>
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Genre</label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-20 measure"
+                  value={props.genre}
+                  onChange={props.handleGenre}
+                  placeholder="rock, indie, country, etc."
+                />
+              </div>
+
               <div className="measure mt2">
-                <label className="f6 b db mb2">Gender</label>
-                <div className="flex justify-center">
+                <label className="f6 b db pb2 pt3">Gender</label>
+                <div className="flex justify-left">
 
                   <div
                     className={`ba br2 pa2 b--black black mr1 ${props.gender ===
                       'M'
-                      ? 'bg-green'
-                      : 'bg-white'}`}
+                      ? 'bg-green white'
+                      : 'bg-white black'}`}
                     onClick={props.handleGender('M')}
                   >
                     Male
                   </div>
                   <div
                     className={`ba br2 pa2 b--black ${props.gender === 'F'
-                      ? 'bg-green'
-                      : 'bg-white'} black ml1`}
+                      ? 'bg-green white'
+                      : 'bg-white black'} black ml1`}
                     onClick={props.handleGender('F')}
                   >
                     Female
@@ -104,8 +125,10 @@ class ProfileForm extends React.Component {
                 </div>
               </div>
               <div className="measure mt2">
-                <label className="f6 b db mb2">Photo (optional)</label>
-                <div className="flex justify-center pv4">
+                <label className="f6 fw6 black-70 b db pb0 mt4">
+                  Photo (optional)
+                </label>
+                <div className="flex justify-left b--black-30 pv3">
                   <img
                     className="h3 w3 ba pa2 br2 mr2"
                     src={
@@ -126,12 +149,12 @@ class ProfileForm extends React.Component {
 
               </div>
               <div className="tc">
-                <Button className="w-75  bg-green ba br2 b--light-green">
+                <Button className="w-50  bg-green ba mt4 br2 b--light-green">
                   Update Profile
                 </Button>
               </div>
               <div className="tc mb2">
-                <Button className="w-75  bg-light-red ba br2 b--light-green">
+                <Button className="w-50  bg-gray ba br2 b--light-gray">
                   Cancel
                 </Button>
               </div>

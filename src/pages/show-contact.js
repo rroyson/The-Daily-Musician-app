@@ -28,13 +28,13 @@ class ShowContact extends React.Component {
           />
         </div>
 
-        <article className="mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+        <article className="mw6 center bg-light-gray br3 pa3 pa4-ns mv3 ">
           <div className="tc">
             <img
               src={props.contact.photo}
               alt=""
-              className="br4 h5 w5 dib ba mt4 b--black-05 pa2"
-              title="Photo of a kitty staring at you"
+              className="br4 h5 w5 dib bg-white ba mt4 b--black-05 pa2"
+              title="Contact Photo"
             />
             <h1 className="f3 mb2">
               {props.contact.firstName} {props.contact.lastName}
@@ -43,7 +43,7 @@ class ShowContact extends React.Component {
           </div>
         </article>
 
-        <main className="mw6 center">
+        <main className="mw6 center ba b--black-20 bg-white">
 
           <h2 className="tc flex-center">Contact Info</h2>
           <ul className="list pl0 mt0 measure center">

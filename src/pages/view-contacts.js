@@ -11,13 +11,13 @@ const li = contact => {
   console.log('contact', contact.profileId)
   return (
     <div>
-      <main className="mw6 center">
-        <article className="dt w-100 bb b--black-05 pb2 mt2" href="#0">
+      <main className="mw6 center avenir">
+        <article className="dt w-100 bb b--black-05 pb2 pt1" href="#0">
           <div className="dtc w2 w3-ns v-mid">
             <img
               src={contact.photo}
               alt=""
-              className="ba b--black-10 db br2 w2 w3-ns h2 h3-ns"
+              className="ba b--black-10 bg-white db br2 w2 w3-ns h2 h3-ns"
             />
           </div>
           <div className="dtc v-mid pl3">
@@ -33,7 +33,7 @@ const li = contact => {
                 to={`/profiles/${contact.profileId}/contacts/${contact._id}`}
               >
                 <button
-                  className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
+                  className="f6 button-reset bg-white ba b--black-20 dim pointer pv1 black-60"
                   type="button"
                 >
                   Details
@@ -83,12 +83,12 @@ class Contacts extends React.Component {
     return (
       <div>
         <ViewContactsHeader profileId={this.props.match.params.id} />
-        <div>
+        <div className="bg-light-gray">
           <list>
 
             {this.props.contacts === []
               ? <div className="pa4 mt4 mb4 ">
-                  <h1 className=" athelas fw4 tc fw6 lh-title black mv0 ">
+                  <h1 className=" avenir fw4 tc fw6 lh-title black mv0 ">
                     There are no contacts to view at this time
                   </h1>
                 </div>

@@ -13,6 +13,7 @@ class Profile extends React.Component {
 
   render() {
     const props = this.props
+    console.log('props', props)
     return (
       <div className="bg-light-gray">
         <div className="mb5">
@@ -20,26 +21,29 @@ class Profile extends React.Component {
 
         </div>
 
-        <article className="mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
-          <div className="tc">
+        <article className="mw6 avenir center bg-white mv3 ">
+          <div className="tc bg-light-gray">
 
             <img
               src={props.profiles.photo}
               alt=""
-              className="br4 h5 w5 dib ba b--black-05 pa2"
+              className="br-100 h5 w5 dib ba bg-white b--black-10 "
               title="Photo of a kitty staring at you"
             />
-            <h1 className="f3 mb2">
+            <h1 className="f2 fw3 ">
               {props.profiles.firstName} {props.profiles.lastName}
             </h1>
-            <h2 className="f5 fw4 gray mt0">
+            <h2 className="f5 fw6 gray mt0 mb0">
               Affiliate at {props.profiles.bandName}
             </h2>
           </div>
 
         </article>
+        <hr />
+        <h2 className="avenir f3 fw4 tc">
+          Upcoming Events list including dates/locations
+        </h2>
 
-        <h2 className="tc">Upcoming Events list including dates/locations</h2>
         <Footer />
 
       </div>

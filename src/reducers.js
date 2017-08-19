@@ -14,7 +14,8 @@ import {
   SET_SEARCH_NAME_TEXT,
   SET_SEARCH_CITY_TEXT,
   SET_SEARCH_STATE_TEXT,
-  SET_VENUES
+  SET_VENUES,
+  CLEAR_VENUE
 } from './constants'
 
 function app(state = { title: 'The Daily Musician' }, action) {
@@ -159,6 +160,13 @@ const findVenues = (
       return merge(state, { city: action.payload })
     case SET_SEARCH_VENUES_X + 'VENUESTATE':
       return merge(state, { venueState: action.payload })
+    case CLEAR_VENUE:
+      return {
+        results: [],
+        name: '',
+        city: '',
+        venueState: ''
+      }
     // case SET_SEARCH_NAME_TEXT:
     //   return merge(state, { searchNameText: action.payload })
     // case SET_SEARCH_CITY_TEXT:

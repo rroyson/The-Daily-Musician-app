@@ -1,7 +1,8 @@
 import React from 'react'
 import EditContactHeader from '../containers/edit-contact-header'
 import BackDeleteHeader from '../containers/back-delete-header'
-import { TextField, Button } from 't63'
+import { Button, TextField } from 't63'
+//import { TextField } from '../components/r-text-field'
 import Footer from '../containers/footer'
 import { getContact, editContact, createContact } from '../db'
 import {
@@ -58,7 +59,7 @@ class ContactForm extends React.Component {
             history={props.history}
           />
         </div>
-        <div className="flex flex-column justify-start w-100 avenir">
+        <div className="flex flex-column justify-start bg-light-gray w-100 avenir">
 
           <main className="overflow-scroll ph2 black-70">
             <h2 className="f4 f2-ns tc">
@@ -68,41 +69,63 @@ class ContactForm extends React.Component {
               onSubmit={props.submitContact(props._id, props.history)}
               className="ph2"
             >
-              <TextField
-                name="First Name"
-                helptxt="First Name"
-                value={props.firstName}
-                onChange={props.handleFirstName}
-              />
-              <TextField
-                name="Last Name"
-                value={props.lastName}
-                onChange={props.handleLastName}
-              />
-              <TextField
-                name="Phone Number"
-                placeholder="(888)-888-8888"
-                value={props.phone}
-                onChange={props.handlePhone}
-              />
-              <TextField
-                name="E-mail"
-                placeholder="you@email.com"
-                value={props.email}
-                onChange={props.handleEmail}
-              />
-              <TextField
-                name="Company"
-                placeholder="venue, band, etc."
-                value={props.company}
-                onChange={props.handleCompany}
-              />
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">First Name</label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-35 measure"
+                  value={props.firstName}
+                  onChange={props.handleFirstName}
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Last Name</label>
+                <input
+                  className="pa2 input-reset b--black-30 ba bg-white w-40 measure"
+                  value={props.lastName}
+                  onChange={props.handleLastName}
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Phone</label>
+                <input
+                  type="tel"
+                  className="pa2 input-reset ba b--black-30 bg-white w-20 measure"
+                  value={props.phone}
+                  onChange={props.handlePhone}
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70 lh-copy f6">Email</label>
+                <input
+                  type="email"
+                  className="pa2 input-reset b--black-30 ba bg-white w-60 measure"
+                  value={props.email}
+                  onChange={props.handleEmail}
+                />
+              </div>
+
+              <div className="mt3">
+                <label className="db fw6 black-70  lh-copy f6">
+                  Company
+                </label>
+                <input
+                  className="pa2 input-reset ba b--black-30 bg-white w-50 measure"
+                  value={props.company}
+                  onChange={props.handleCompany}
+                />
+              </div>
 
               <div className="measure mt2">
-                <label className="f6 b db mb2">Photo (optional)</label>
-                <div className="flex justify-center pv4">
+                <label className="f6 fw6 black-70 b db pb0 mt4">
+                  Photo (optional)
+                </label>
+                <div className="flex justify-left b--black-30 pv3">
                   <img
-                    className="h3 w3 ba pa2 br2 mr2"
+                    className="h3 w3 ba b--black-30 pa2 br2 mr2"
                     src={
                       props.photo
                         ? props.photo
@@ -113,7 +136,7 @@ class ContactForm extends React.Component {
                   <FileInput className="pv3 ml2" onChange={props.handlePhoto}>
                     <Button
                       type="button"
-                      className="bg-green ba br2 b--light-green black"
+                      className="bg-green ba br2 b--green black"
                     >
                       Upload
                     </Button>
@@ -122,12 +145,12 @@ class ContactForm extends React.Component {
                 </div>
               </div>
               <div className="tc">
-                <Button className="w-75  bg-green ba br2 b--light-green">
+                <Button className="w-50  bg-green ba mt4 br2 b--light-green">
                   {props._id ? 'Update Contact' : 'Create Contact'}
                 </Button>
               </div>
               <div className="tc mb2">
-                <Button className="w-75  bg-light-red ba br2 b--light-green">
+                <Button className="w-50  bg-gray ba br2 b--light-gray">
                   Cancel
                 </Button>
               </div>

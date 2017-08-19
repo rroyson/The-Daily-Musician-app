@@ -9,38 +9,40 @@ class VenueSearch extends React.Component {
   render() {
     const props = this.props
     return (
-      <div className="pa4">
-        <h2>Find a Venue</h2>
+      <div className="pa4 bg-light-gray avenir">
+        <h2 className="f4 f3-ns">Find a Venue</h2>
         <form onSubmit={props.handleSubmit(props.history)}>
-          <div className="measure">
-            <label className="db mb2">Venue Name</label>
+          <div className="mt3">
+            <label className="db fw6 black-70 lh-copy f6">Venue Name</label>
             <input
               value={props.name}
               onChange={props.handleName}
-              className="input-reset db w-100"
+              className="input-reset db w-50"
               type="text"
             />
           </div>
-          <div className="measure">
-            <label className="db mb2">City</label>
+          <div className="mt3">
+            <label className="db fw6 black-70 lh-copy f6">City</label>
             <input
               value={props.city}
               onChange={props.handleCity}
-              className="input-reset db w-100"
+              className="input-reset db w-50"
               type="text"
             />
           </div>
-          <div className="measure">
-            <label className="db mb2">State</label>
+          <div className="mt3">
+            <label className="db fw6 black-70 lh-copy f6">State</label>
             <input
               value={props.venueState}
               onChange={props.handleVenueState}
-              className="input-reset db w-100"
+              className="input-reset db w-50"
               type="text"
             />
           </div>
           <div className="mt2">
-            <button>Search</button>
+            <button className="w-20  bg-green white ba mt2 br2 b--light-green">
+              Search
+            </button>
           </div>
         </form>
       </div>

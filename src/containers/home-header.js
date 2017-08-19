@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 const HomeHeader = props => {
   return (
-    <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
+    <header className="avenir flex flex-row justify-between items-center bg-dark-gray h3">
       <div className="ml2">
         <i className="f3 white-60 ion-log-out" />
       </div>

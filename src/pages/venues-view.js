@@ -6,11 +6,12 @@ import { getVenues } from '../db'
 import { connect } from 'react-redux'
 import VenueSearch from '../containers/venue-search'
 import { map } from 'ramda'
+import { SET_VENUE, CLEAR_VENUE } from '../constants'
 
 const li = venue => {
   return (
     <main className="mw6 center">
-      <article className="dt w-100 bb b--black-05 pb2 mt2" href="#0">
+      <article className="dt w-100 bb b--black-30 bg-white pa2 mt2" href="#0">
         <div className="dtc w2 w3-ns v-mid">
           <img
             src="https://image-ticketfly.imgix.net/00/01/67/95/31-og.png?w=300&h=214"
@@ -23,13 +24,14 @@ const li = venue => {
             {venue.name}
           </h1>
           <h2 className="f6 fw4 mt0 mb0 black-60">
-            {venue.city}, {venue.state}
+            {venue.address}
           </h2>
         </div>
         <div className="dtc v-mid">
           <form className="w-100 tr">
-            <Link className="link black-60" to="/venues/:id">
+            <Link className="link black-60" to={`venues/${venue._id}`}>
               <button
+                onClick={'' /*{venue.selectVenue(venue.history, venue)}*/}
                 className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
                 type="submit"
               >
@@ -55,7 +57,7 @@ class Venues extends React.Component {
   render() {
     const props = this.props
     return (
-      <div>
+      <div className="bg-light-gray">
         <VenueListHeader />
 
         <div>
@@ -77,7 +79,30 @@ class Venues extends React.Component {
   }
 }
 
-const connector = connect(mapStateToProps)
+const connector = connect(mapStateToProps, mapActionsToProps)
+
+function mapActionsToProps(dispatch) {
+  return {
+    selectVenue: (history, venues) => e => {
+      const venue = {
+        address: venues.address,
+        city: venues.city,
+        country: venues.country,
+        formattedAddress: venues.formattedAddress,
+        name: venues.name,
+        phone: venues.phone,
+        postalCode: venues.postalCode,
+        state: venues.state,
+        url: venues.url,
+        _id: venues.id
+      }
+
+      dispatch({ type: SET_VENUE, payload: venues })
+      dispatch({ type: CLEAR_VENUE })
+      history.push('/new')
+    }
+  }
+}
 
 function mapStateToProps(state) {
   return {
