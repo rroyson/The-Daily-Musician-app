@@ -4,20 +4,24 @@ import Footer from '../containers/footer'
 import TimekitBooking from 'timekit-booking'
 require('jquery')
 
-// Booking.js is now available as local var TimekitBooking instead of global window.timekitBooking
-var widget = new TimekitBooking()
-console.log('widget', widget)
-class Calendar extends React.Component {
+export default class Calendar extends React.Component {
+  componentDidMount() {
+    var widget = new window.TimekitBooking()
+    widget.init({
+      app: 'daily-musician',
+      email: 'frontiersons@gmail.com',
+      apiToken: 'H6KEqtzjTVzP8vP3Z9MJdEufBFeOYFEC',
+      calendar: '58e308b6-3505-47a1-b642-17b121689b93',
+      targetEl: this.refs.bookingjs
+    })
+  }
+
   render() {
     return (
       <div>
-        <ViewContactsHeader />
-        <div />
-        <h1 className="tc">Calender entered here</h1>
-        <Footer />
+        <h1>Calendar</h1>
+        <div id="bookingjs" ref="bookingjs" />
       </div>
     )
   }
 }
-
-export default Calendar

@@ -13,11 +13,13 @@ class VenueSearch extends React.Component {
         <h2 className="f4 f3-ns">Find a Venue</h2>
         <form onSubmit={props.handleSubmit(props.history)}>
           <div className="mt3">
-            <label className="db fw6 black-70 lh-copy f6">Venue Name</label>
+            <label className="db fw6 black-70 lh-copyf6">
+              Venue Name
+            </label>
             <input
               value={props.name}
               onChange={props.handleName}
-              className="input-reset db w-50"
+              className="input-reset db w-30"
               type="text"
             />
           </div>
@@ -26,7 +28,7 @@ class VenueSearch extends React.Component {
             <input
               value={props.city}
               onChange={props.handleCity}
-              className="input-reset db w-50"
+              className="input-reset db w-30"
               type="text"
             />
           </div>
@@ -35,7 +37,7 @@ class VenueSearch extends React.Component {
             <input
               value={props.venueState}
               onChange={props.handleVenueState}
-              className="input-reset db w-50"
+              className="input-reset db w-30"
               type="text"
             />
           </div>

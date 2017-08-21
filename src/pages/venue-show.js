@@ -86,7 +86,7 @@ class ShowVenue extends React.Component {
           <div className="tc">
             <Link className="link" to="/venues/:id/edit">
               <Button className="w-75 bg-green ba br2 b--light-green">
-                Edit Venue
+                Add Venue
               </Button>
             </Link>
           </div>
