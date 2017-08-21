@@ -1,5 +1,5 @@
 import React from 'react'
-import EditContactHeader from '../containers/edit-contact-header'
+import VenueHeader from '../containers/venue-header'
 import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 import { Button } from 't63'
@@ -9,25 +9,42 @@ import { getVenue } from '../db'
 class ShowVenue extends React.Component {
   componentDidMount() {
     const venueId = this.props.match.params.id
+    this.props.dispatch(getVenue(venueId))
   }
 
   render() {
     return (
       <div className="bg-light-gray">
         <div>
-          <EditContactHeader />
+          <VenueHeader />
         </div>
 
         <article className="mw6 center bg-light-gray br3 pa3 pa4-ns mv3 ">
           <div className="tc ">
             <img
-              src="https://image-ticketfly.imgix.net/00/01/67/95/31-og.png?w=300&h=214"
+              src={
+                this.props.venues.photo
+                  ? this.props.venues.photo
+                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8r-xoWVzfquxXxVjc5in7zMvwVeAjj9QwEz2lffms8WdvP3d3'
+              }
               alt=""
               className="br4 h5 w5 dib bg-white ba mt4 b--black-05 pa2"
               title="Venue Photo"
             />
-            <h1 className="f3 mb2">Music Farm (Charleston)</h1>
-            <h2 className="f5 fw4 gray mt0">321 Anne Street Charleston, SC</h2>
+            <h1 className="f3 mb2">
+              {this.props.venues.name}
+            </h1>
+            <h2 className="f5 fw4 gray mt0">
+              {this.props.venues.address +
+                ' ' +
+                this.props.venues.city +
+                ', ' +
+                this.props.venues.state +
+                ' ' +
+                this.props.venues.postalCode +
+                ' ' +
+                this.props.venues.country}
+            </h2>
 
           </div>
 
@@ -38,16 +55,30 @@ class ShowVenue extends React.Component {
             <li className="flex items-center lh-copy pa3  ph0-l bb b--black-10">
               <img
                 className="w2 h2 w3-ns h3-ns br-100"
-                src="http://tachyons.io/img/avatar-mrmrs.jpg"
+                src={
+                  this.props.venues.photo
+                    ? this.props.venues.photo
+                    : 'https://aciappcenter.cisco.com/skin/frontend/ciscopackage/system/images/avatar.png'
+                }
                 alt=""
               />
               <div className="pl3 flex-auto">
-                <span className="f6 db b black-70">Mike Rogers</span>
-                <span className="f6 db black-70">mike@email.com</span>
+                <span className="f6 db b black-70">
+                  {this.props.venues.contact
+                    ? this.props.venues.contact
+                    : 'No contact name available'}
+                </span>
+                <span className="f6 db black-70">
+                  {this.props.venues.url
+                    ? this.props.venues.url
+                    : 'No contact email available'}
+                </span>
               </div>
               <div>
                 <a href="tel:" className="f6 link blue hover-dark-gray">
-                  8012341234
+                  {this.props.venues.phone
+                    ? this.props.venues.phone
+                    : 'No contact phone available'}
                 </a>
               </div>
             </li>
@@ -69,8 +100,11 @@ class ShowVenue extends React.Component {
 const connector = connect(mapStateToProps)
 
 function mapStateToProps(state) {
+  console.log('venue State', state.venues)
+  // console.log('find venuse state', state.findVenues)
   return {
-    findVenues: state.findVenues
+    findVenues: state.findVenues,
+    venues: state.venues
   }
 }
 

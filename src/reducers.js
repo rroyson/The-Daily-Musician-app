@@ -133,7 +133,8 @@ const venueDefault = {
   phone: '(615) 736-5727',
   postalCode: '37203',
   state: 'TN',
-  url: 'http://pourhousenashville.com'
+  url: 'http://pourhousenashville.com',
+  _id: '54fff0f5498eefa0998f4452'
 }
 
 const findVenues = (

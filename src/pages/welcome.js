@@ -14,8 +14,9 @@ class Welcome extends React.Component {
       <div>
         <article className="athelas">
           <div>
+
             <div
-              className="vh-100 dt w-100 tc bg-dark-gray white-30 cover o-90"
+              className="vh-100 dt w-100 tc bg-black-80 white-30 cover o-90"
               style={{
                 'background-image':
                   'url("http://www.iheartberlin.de/wp-content/uploads/2016/02/Live-Concert-Berlin-640x425.jpg")'
@@ -23,7 +24,7 @@ class Welcome extends React.Component {
             >
 
               <div className="dtc v-mid">
-                <h1 className="f1 f-headline-l fw3 i white">
+                <h1 className="f1 f-headline-l fw3 i  green">
                   {this.props.app.title}
                 </h1>
                 <blockquote className="ph0 mh0 measure f4 lh-copy center">

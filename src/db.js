@@ -7,7 +7,7 @@ import {
   SET_VENUES_SEARCH,
   SET_VENUE
 } from './constants'
-import { assoc, pathOr, map, pick, compose } from 'ramda'
+import { assoc, pathOr, map, pick, compose, prop, path } from 'ramda'
 const apiUrl = process.env.REACT_APP_API_URL
 const venueUrl = process.env.REACT_APP_API_VENUE_URL
 // console.log(process.env)
@@ -250,7 +250,7 @@ export const getVenues = history => (dispatch, getState) => {
 
   fetch(
     venueUrl +
-      `v=20161016&near=${city},${state}&query=${name}&intent=checkin&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,
+      `search?v=20161016&near=${city},${state}&query=${name}&intent=checkin&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,
     getOptions
   )
     .then(res => res.json())
@@ -280,13 +280,86 @@ export const getVenues = history => (dispatch, getState) => {
 
 export const getVenue = (venueId, history) => (dispatch, getState) => {
   const venue = getState().findVenues
-  const options = getOptions(getState())
-
-  fetch(apiUrl + `venues/${venueId}`)
+  console.log('db venueId', venueId)
+  console.log('venue db', venue)
+  const options = getOptions()
+  // console.log('options', options)
+  console.log(
+    'url',
+    venueUrl +
+      `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`
+  )
+  fetch(
+    venueUrl +
+      `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,
+    getOptions
+  )
     .then(res => res.json())
-    .then(data => dispatch({ type: SET_VENUE, payload: data }))
+    .then(data => {
+      return compose(
+        v => ({
+          _id: v.id,
+          name: v.name,
+          phone: v.contact.formattedPhone,
+          city: v.location.city,
+          state: v.location.state,
+          address: v.location.address,
+          postalCode: v.location.postalCode,
+          country: v.location.country,
+          formattedAddress: v.location.formattedAddress,
+
+          url: v.url
+        }),
+        pick(['name', 'location', 'url', 'contact', 'id']),
+        pathOr([], ['response', 'venue'])
+      )(data)
+    })
+    .then(result => dispatch({ type: SET_VENUES, payload: result })) //console.log('composed result', composedResult)
     .catch(err => console.log(err))
 }
+
+// export const getVenue = (venueId, history) => (dispatch, getState) => {
+//   const venue = getState().findVenues
+//   console.log('db venueId', venueId)
+//   console.log('venue db', venue)
+//   const options = getOptions()
+//   // console.log('options', options)
+//   console.log(
+//     'url',
+//     venueUrl +
+//       `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`
+//   )
+//   fetch(
+//     venueUrl +
+//       `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,
+//     getOptions
+//   )
+//     .then(res => res.json())
+//     .then(data => {
+//       const transform = venueBasic => ({
+//         _id: venueBasic.id,
+//         name: venueBasic.name,
+//         phone: venueBasic.contact.formattedPhone,
+//         city: venueBasic.location.city,
+//         state: venueBasic.location.state,
+//         address: venueBasic.location.address,
+//         postalCode: venueBasic.location.postalCode,
+//         country: venueBasic.location.country,
+//         formattedAddress: venueBasic.location.formattedAddress,
+//         url: venueBasic.url
+//       })
+//
+//       const result = compose(
+//         transform,
+//         pick(['id', 'name', 'location', 'contact', 'url']),
+//         pathOr({}, ['response', 'venue'])
+//       )(data)
+//     })
+//     .then(composedResult => //console.log('composed result', composedResult)
+//        dispatch({ type: SET_VENUES, payload: composedResult })
+//     )
+//     .catch(err => console.log(err))
+// }
 
 // export const getOrCreateProfile = (authResult, history) => (
 //   dispatch,
