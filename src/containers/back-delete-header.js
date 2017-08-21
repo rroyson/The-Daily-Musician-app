@@ -13,6 +13,7 @@ class BackDeleteHeader extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
         <div className="ml2">

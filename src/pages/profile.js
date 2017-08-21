@@ -39,11 +39,11 @@ class Profile extends React.Component {
           </div>
 
         </article>
-        <hr />
+        {/*<hr />
         <h2 className="avenir f3 fw4 tc">
           Upcoming Events list including dates/locations
         </h2>
-
+}*/}
         <Footer />
 
       </div>
