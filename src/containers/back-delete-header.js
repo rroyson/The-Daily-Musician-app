@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { removeProfile, removeContact, getContact } from '../db'
+import { removeProfile, removeContact } from '../db'
 
 class BackDeleteHeader extends React.Component {
   componentDidMount() {
@@ -13,11 +13,13 @@ class BackDeleteHeader extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
         <div className="ml2">
-          <Link className="Link white-60" to="profile/:id/contacts">
+          <Link
+            className="Link white-60"
+            to={`/profiles/${this.props.profileId}/contacts`}
+          >
             <i className="f3 ion-chevron-left" />
           </Link>
         </div>
@@ -32,7 +34,7 @@ class BackDeleteHeader extends React.Component {
               this.props.history
             )}
             className="link white-60"
-            to={`profile/${this.props.profileId}/contacts`}
+            to={`/profiles/${this.props.profileId}/contacts`}
           >
             <i className="f3 mr1 white-60 ion-trash-a" />
           </Link>

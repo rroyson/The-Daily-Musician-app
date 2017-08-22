@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const ViewContactsHeader = props => {
-  console.log('props', props)
   return (
     <header className="athelas flex flex-row justify-between items-center bg-dark-gray h3">
       <Link className="link black-60" to={`/profiles/${props.profiles._id}`}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import CalendarHeader from '../containers/calendar-header'
 import Footer from '../containers/footer'
-import TimekitBooking from 'timekit-booking'
 require('jquery')
 
 export default class Calendar extends React.Component {
@@ -14,54 +13,50 @@ export default class Calendar extends React.Component {
       targetEl: this.refs.bookingjs,
       // availabilityView: 'listing',
       fullCalendar: {
-    
-    defaultView: 'agendaWeek',
-    height: 500
-  },
-
+        defaultView: 'agendaWeek',
+        height: 500
+      },
 
       bookingFields: {
-          name: {
-            placeholder: 'Venue Name'
-          },
-          email: {
-            prefilled: 'Venue Email',
-            disabled: true
-          },
-          comment: {
-            enabled: true,
-            prefilled: 'Say a few words'
-          },
-          phone: {
-            enabled: true,
-            required: true,
-            prefilled: 'Event Phone'
-          },
-        
-          location: {
-            enabled: true,
-            placeholder: 'location'
-          }
+        name: {
+          placeholder: 'Venue Name'
+        },
+        email: {
+          prefilled: 'Venue Email',
+          disabled: true
+        },
+        comment: {
+          enabled: true,
+          prefilled: 'Say a few words'
+        },
+        phone: {
+          enabled: true,
+          required: true,
+          prefilled: 'Event Phone'
+        },
+
+        location: {
+          enabled: true,
+          placeholder: 'location'
         }
-      
+      }
     }
     if (window.TimekitBooking) {
       var widget = new window.TimekitBooking()
       widget.init(customBooking)
     } else {
-    document.addEventListener('DOMContentLoaded', e => {
-      var widget = new window.TimekitBooking()
-      widget.init(customBooking)
-    })
-  }
-    
+      document.addEventListener('DOMContentLoaded', e => {
+        var widget = new window.TimekitBooking()
+        widget.init(customBooking)
+      })
+    }
   }
 
   render() {
     return (
       <div>
-      <CalendarHeader />
-        <h1 className='avenir flex justify-center fw4'>Calendar</h1>
+        <CalendarHeader />
+        <h1 className="avenir flex justify-center fw4">Calendar</h1>
         <div id="bookingjs" ref="bookingjs" />
         <Footer />
       </div>

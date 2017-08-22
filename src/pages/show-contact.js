@@ -3,7 +3,7 @@ import BackDeleteHeader from '../containers/back-delete-header'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getContact, getProfile } from '../db'
+import { getContact } from '../db'
 import { Button } from 't63'
 
 class ShowContact extends React.Component {

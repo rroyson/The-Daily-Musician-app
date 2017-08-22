@@ -4,10 +4,9 @@ import {
   SET_PROFILE_CONTACTS,
   SET_PROFILE_CONTACT,
   SET_VENUES,
-  SET_VENUES_SEARCH,
-  SET_VENUE
+  SET_VENUES_SEARCH
 } from './constants'
-import { assoc, pathOr, map, pick, compose, prop, path } from 'ramda'
+import { pathOr, map, pick, compose } from 'ramda'
 const apiUrl = process.env.REACT_APP_API_URL
 const venueUrl = process.env.REACT_APP_API_VENUE_URL
 // console.log(process.env)
@@ -70,11 +69,7 @@ export const createProfile = history => (dispatch, getState) => {
 }
 
 export const editProfile = history => (dispatch, getState) => {
-  console.log('editProfile')
   const profiles = getState().profiles
-  console.log('getState', getState().profiles)
-  console.log('options', getOptions())
-  console.log('url', apiUrl + `profiles/${profiles._id}`)
   fetch(apiUrl + `profiles/${profiles._id}`, getOptions('PUT', profiles))
     .then(res => res.json())
     .then(data =>
@@ -133,9 +128,6 @@ export const getContact = (profileId, contactId, history) => (
   dispatch,
   getState
 ) => {
-  const contact = getState().contact
-  const options = getOptions(getState())
-
   fetch(apiUrl + `profiles/${profileId}/contacts/${contactId}`)
     .then(res => res.json())
     .then(data => dispatch({ type: SET_PROFILE_CONTACT, payload: data }))
@@ -146,7 +138,6 @@ export const removeContact = (profileId, contactId, history) => (
   dispatch,
   getState
 ) => {
-  const contact = getState().contact
   fetch(
     apiUrl + `profiles/${profileId}/contacts/${contactId}`,
     getOptions('DELETE')
@@ -171,7 +162,7 @@ export const removeContact = (profileId, contactId, history) => (
         }
       })
     )
-    .then(() => history.push(`profiles/${profileId}/contacts`))
+    .then(() => history.push(`/profiles/${profileId}/contacts`))
 }
 
 export const createContact = history => (dispatch, getState) => {
@@ -279,16 +270,6 @@ export const getVenues = history => (dispatch, getState) => {
 }
 
 export const getVenue = (venueId, history) => (dispatch, getState) => {
-  const venue = getState().findVenues
-  console.log('db venueId', venueId)
-  console.log('venue db', venue)
-  const options = getOptions()
-  // console.log('options', options)
-  console.log(
-    'url',
-    venueUrl +
-      `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`
-  )
   fetch(
     venueUrl +
       `${venueId}?v=20161016&m=foursquare&client_id=CRGE3AWBRW02MKXCUKGN0RSQ30TYL22YSD02FMVIZV4YCPE2&client_secret=VZQGJ14JP4JENDQD4VHGVABVUY4HJF3J5C0B1DWVHVAHCXLD`,

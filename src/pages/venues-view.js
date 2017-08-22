@@ -2,15 +2,11 @@ import React from 'react'
 import VenueListHeader from '../containers/venue-list-header'
 import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
-import { getVenue } from '../db'
 import { connect } from 'react-redux'
 import VenueSearch from '../containers/venue-search'
 import { map } from 'ramda'
-import { SET_VENUES, CLEAR_VENUE } from '../constants'
 
 const li = venue => {
-  console.log('venueId', venue._id)
-  console.log('venue', venue)
   return (
     <main className="mw6 center">
       <article className="dt w-100 bb b--black-30 bg-white pa2 mt2" href="#0">
@@ -48,14 +44,7 @@ const li = venue => {
 }
 
 class Venues extends React.Component {
-  componentDidMount() {
-    const city = this.props.venues.city
-    const state = this.props.venues.state
-    const name = this.props.venues.name
-
-    // this.props.dispatch(getProfile(profileId))
-    // this.props.dispatch(getVenues(city, state, name))
-  }
+  componentDidMount() {}
   render() {
     const props = this.props
     return (
@@ -83,21 +72,7 @@ class Venues extends React.Component {
 
 const connector = connect(mapStateToProps)
 
-// function mapActionsToProps(dispatch) {
-//   return {
-//     selectVenue: (venueId, history) => e => {
-//       e.preventDefault()
-//       dispatch(getVenue(venueId, history))
-//       //dispatch({ type: SET_VENUES, payload: venues })
-//     }
-//
-//     // dispatch({ type: CLEAR_VENUE })
-//     // history.push('/new')
-//   }
-// }
-
 function mapStateToProps(state) {
-  console.log('venue state', state.venues)
   return {
     venues: state.venues,
     results: state.findVenues.results

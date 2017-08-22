@@ -1,9 +1,9 @@
 import React from 'react'
 import BackDeleteHeader from '../containers/back-delete-header'
-import { TextField, Button } from 't63'
+import { Button } from 't63'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
-import { SET_PROFILE_X, SET_EDITED_PROFILE, SET_PROFILE } from '../constants'
+import { SET_PROFILE_X, SET_PROFILE } from '../constants'
 import { toUpper, compose, head, path, pathOr } from 'ramda'
 import { editProfile, getProfile, createProfile } from '../db'
 import FileInput from '../components/file-input'
@@ -131,6 +131,7 @@ class ProfileForm extends React.Component {
                 <div className="flex justify-left b--black-30 pv3">
                   <img
                     className="h3 w3 ba pa2 br2 mr2"
+                    alt=""
                     src={
                       props.photo
                         ? props.photo
@@ -202,7 +203,6 @@ function mapActionsToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state.profiles._id)
   return {
     _id: state.profiles._id,
     firstName: state.profiles.firstName,

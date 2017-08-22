@@ -1,14 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProfile } from '../db'
-import Logo from '../components/logo'
 import { Link } from 'react-router-dom'
 
 class Welcome extends React.Component {
-  componentDidMount() {
-    // const profileId = this.props.match.params.id
-    // this.props.dispatch(getProfile(profileId))
-  }
+  componentDidMount() {}
   render() {
     return (
       <div>
@@ -53,7 +49,6 @@ class Welcome extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state', state)
   return {
     app: state.app,
     profile: state.profile,

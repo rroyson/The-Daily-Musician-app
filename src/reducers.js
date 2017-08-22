@@ -11,9 +11,6 @@ import {
   SET_PROFILE_CONTACT,
   SET_VENUES_SEARCH,
   SET_SEARCH_VENUES_X,
-  SET_SEARCH_NAME_TEXT,
-  SET_SEARCH_CITY_TEXT,
-  SET_SEARCH_STATE_TEXT,
   SET_VENUES,
   CLEAR_VENUE
 } from './constants'
@@ -67,7 +64,6 @@ const profiles = (state = profileDefault, action) => {
     case CLEAR_PROFILE:
       return state
 
-      return {}
     default:
       return state
   }

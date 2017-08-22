@@ -53,7 +53,6 @@ class VenueSearch extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('name state', state.findVenues.name)
   return {
     name: state.findVenues.name,
     city: state.findVenues.city,

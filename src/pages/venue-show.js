@@ -100,8 +100,6 @@ class ShowVenue extends React.Component {
 const connector = connect(mapStateToProps)
 
 function mapStateToProps(state) {
-  console.log('venue State', state.venues)
-  // console.log('find venuse state', state.findVenues)
   return {
     findVenues: state.findVenues,
     venues: state.venues

@@ -1,15 +1,9 @@
 import React from 'react'
-import EditContactHeader from '../containers/edit-contact-header'
 import BackDeleteHeader from '../containers/back-delete-header'
-import { Button, TextField } from 't63'
-//import { TextField } from '../components/r-text-field'
+import { Button } from 't63'
 import Footer from '../containers/footer'
 import { getContact, editContact, createContact } from '../db'
-import {
-  SET_PROFILE_CONTACT,
-  SET_CONTACT_X,
-  SET_PROFILE_CONTACTS
-} from '../constants'
+import { SET_PROFILE_CONTACT, SET_CONTACT_X } from '../constants'
 import { pathOr, toUpper, compose, path, head } from 'ramda'
 import { connect } from 'react-redux'
 import FileInput from '../components/file-input'

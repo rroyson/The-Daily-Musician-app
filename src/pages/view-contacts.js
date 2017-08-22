@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom'
 import Footer from '../containers/footer'
 import { connect } from 'react-redux'
 import { map } from 'ramda'
-import { getContacts, getProfile } from '../db'
-import { SET_PROFILE_CONTACTS } from '../constants'
+import { getContacts } from '../db'
 
 const li = contact => {
-  console.log('contact', contact.profileId)
   return (
     <div>
       <main className="mw6 center avenir">
@@ -50,36 +48,10 @@ const li = contact => {
 class Contacts extends React.Component {
   componentDidMount() {
     const profileId = this.props.match.params.id
-    console.log('props.contacts', this.props.contacts)
-    // this.props.dispatch(getProfile(profileId))
     this.props.dispatch(getContacts(profileId))
-
-    // if (profileId) {
-    //   this.props.dispatch(getContacts(profileId))
-    // } else {
-    //   this.props.dispatch({
-    //     type: SET_PROFILE_CONTACTS,
-    //     payload: {
-    //       profileId: profileId,
-    //       firstName: '',
-    //       lastName: '',
-    //       email: '',
-    //       phone: '',
-    //       gender: '',
-    //       company: '',
-    //       genre: '',
-    //       photo: ''
-    //     }
-    //   })
-    // }
-
-    // const contactId = this.props.match.params.contactId
-
-    //console.log('contactId', contactId)
   }
 
   render() {
-    //const data = this.props.contacts
     return (
       <div>
         <ViewContactsHeader profileId={this.props.match.params.id} />
@@ -106,7 +78,6 @@ class Contacts extends React.Component {
 function mapStateToProps(state) {
   return {
     contacts: state.contacts
-    //profiles: state.profiles
   }
 }
 

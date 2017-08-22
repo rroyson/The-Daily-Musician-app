@@ -8,12 +8,10 @@ class Profile extends React.Component {
   componentDidMount() {
     const profileId = this.props.match.params.id
     this.props.dispatch(getProfile(profileId))
-    console.log('profileId', profileId)
   }
 
   render() {
     const props = this.props
-    console.log('props', props)
     return (
       <div className="bg-light-gray">
         <div className="mb5">
@@ -52,7 +50,6 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state.profiles)
   return {
     profiles: state.profiles
   }
